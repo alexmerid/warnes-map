@@ -1,13 +1,14 @@
 from flask import Flask, render_template, request
 from flaskext.mysql import MySQL
 from pymysql.cursors import DictCursor
+import os
 
 app = Flask(__name__)
 
 # Configuración de la conexión MySQL
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
+app.config['MYSQL_DATABASE_HOST'] = os.environ.get('DB_HOST', 'localhost')
+app.config['MYSQL_DATABASE_USER'] = os.environ.get('DB_USER', 'root')
+app.config['MYSQL_DATABASE_PASSWORD'] = os.environ.get('DB_PASSWORD', 'root')
 app.config['MYSQL_DATABASE_DB'] = 'warnes'
 app.config['MYSQL_CURSORCLASS'] = DictCursor
 
