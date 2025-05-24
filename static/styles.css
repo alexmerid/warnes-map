@@ -102,23 +102,48 @@ body {
 /* Panel de Filtrado */
 .filtro-panel {
     background: var(--color-fondo);
-    border: 1px solid #bbb;
-    border-radius: 0.6rem;
-    padding: 0.5rem 1.5rem;
-    /* margin-bottom: 1.5rem; */
-    display: block;
-    transition: all 0.3s;
+    border: 0.1rem solid #bbb;
+    padding: 0.5rem;
 }
 
+
+.filtro-campo {
+    display: inline-block;
+}
+
+
 .filtro-etiqueta {
-    margin-left: 1rem;
-    margin-right: 0.5rem;
     font-weight: bold;
+    width: 150rem;
 }
 
 .filtro-texto {
-    margin-right: 1rem;
+    margin-right: 1.5rem;
     font-size: 1.4rem;
+    width: 23rem;
+}
+
+@media (max-width: 768px) {
+    .filtro-campo {
+        display: flex;
+        margin-bottom: 1rem;
+        justify-content: end;
+    }
+
+    .filtro-etiqueta {
+        flex: 0 0 9rem;
+        text-align: right;
+        padding-right: 1rem;
+    }
+
+    .filtro-texto {
+        flex: 1;
+    }
+
+    .filtro-boton {
+        margin-right: 1.5rem;
+    }
+
 }
 
 .filtro-boton {
@@ -126,8 +151,7 @@ body {
     color: var(--color-fondo);
     background-color: var(--color-boton);
     border: none;
-    padding: 0.4rem 3rem;
-    margin-right: 2rem;
+    padding: 0.4rem 2rem;
     font-size: 1.4rem;
     font-weight: bold;
     text-transform: uppercase;

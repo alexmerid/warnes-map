@@ -23,20 +23,28 @@
 <body>
     <div class="contenedor">
         <form id="filtro-form" class="filtro-panel" method="get">
-            <label class="filtro-etiqueta" for="ref_ini">Grupo de Ubicaciones</label>
-            <select class="filtro-texto" name="ref_ini" id="ref_ini">
-                {% for ref in referencias_mil %}
-                <option value="{{ ref.id }}" {% if ref.id==ref_ini %}selected{% endif %}>{{ ref.descripcion }} </option>
-                {% endfor %}
-            </select>
-            <label class="filtro-etiqueta" for="ref_sel">Ubicación</label>
-            <select class="filtro-texto" name="ref_sel" id="ref_sel">
-                <option value="">Todas</option>
-                {% for ref in referencias_rango %}
-                <option value="{{ ref.id }}" {% if ref_sel==ref.id %}selected{% endif %}>{{ ref.descripcion }} </option>
-                {% endfor %}
-            </select>
-            <button class="filtro-boton" type="submit">Filtrar</button>
+            <div class="filtro-campo">
+                <label class="filtro-etiqueta" for="ref_ini">Ubicaciones</label>
+                <select class="filtro-texto" name="ref_ini" id="ref_ini">
+                    {% for ref in referencias_mil %}
+                    <option value="{{ ref.id }}" {% if ref.id==ref_ini %}selected{% endif %}>{{ ref.descripcion }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtro-campo">
+                <label class="filtro-etiqueta" for="ref_sel">Ubicación</label>
+                <select class="filtro-texto" name="ref_sel" id="ref_sel">
+                    <option value="">Todas</option>
+                    {% for ref in referencias_rango %}
+                    <option value="{{ ref.id }}" {% if ref_sel==ref.id %}selected{% endif %}>{{ ref.descripcion }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtro-campo">
+                <button class="filtro-boton" type="submit">Filtrar</button>
+            </div>
         </form>
 
         <div id="map" class="no-margin no-padding"></div>
