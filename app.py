@@ -51,12 +51,14 @@ def index():
         poste p
         inner join poste_luminaria pl on p.id = pl.id_poste
         inner join luminaria l on pl.id_luminaria = l.id
-    WHERE p.id_referencia >= %s AND p.id_referencia < %s
     """
-    params = [ref_ini, ref_ini + 1000]
     if ref_sel:
-        sql += " AND p.id_referencia = %s"
-        params.append(ref_sel)
+        sql += " WHERE p.id_referencia = %s"
+        params = [ref_sel]
+    else:
+        sql += " WHERE p.id_referencia >= %s AND p.id_referencia < %s"
+        params = [ref_ini, ref_ini + 1000]
+
     sql += " ORDER BY p.id;"
 
     cursor.execute(sql, params)
