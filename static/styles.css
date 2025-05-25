@@ -4,7 +4,6 @@
     --color-fondo: #f5f5f5;
     --color-texto: #333;
     --color-boton: #3a8dc9;
-    --color-boton-hover: #2b76ac;
 
     --fuente-parrafo: 'Arial', sans-serif;
     --fuente-titulo: 'Arial', sans-serif;
@@ -104,36 +103,41 @@ body {
     background: var(--color-fondo);
     border: 0.1rem solid #bbb;
     padding: 0.5rem;
+    display: flex;
 }
 
 
 .filtro-campo {
-    display: inline-block;
+    display: flex;
+    padding: 0 0.5rem;
 }
 
 
 .filtro-etiqueta {
     font-weight: bold;
-    width: 150rem;
+    width: 9rem;
+    text-align: right;
+    padding: 0.3rem;
 }
 
 .filtro-texto {
-    margin-right: 1.5rem;
+    margin-right: 1rem;
     font-size: 1.4rem;
-    width: 23rem;
+    width: 24rem;
 }
 
 @media (max-width: 768px) {
+    .filtro-panel {
+        flex-direction: column;
+    }
+
     .filtro-campo {
-        display: flex;
         margin-bottom: 1rem;
         justify-content: end;
     }
 
     .filtro-etiqueta {
         flex: 0 0 9rem;
-        text-align: right;
-        padding-right: 1rem;
     }
 
     .filtro-texto {
@@ -141,7 +145,7 @@ body {
     }
 
     .filtro-boton {
-        margin-right: 1.5rem;
+        margin-right: 1rem;
     }
 
 }
@@ -157,4 +161,41 @@ body {
     text-transform: uppercase;
     border-radius: 0.6rem;
     cursor: pointer;
+}
+
+/* Combo de checkboxes */
+.combo-checkbox {
+    position: relative;
+    width: 100%;
+    line-height: 1.1;
+}
+
+.combo-label {
+    background-color: #e9e9ed;
+    border: 1px solid #bbb;
+    border-radius: 0.4rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    user-select: none;
+
+    margin-right: 1rem;
+}
+
+.combo-options {
+    display: none;
+    position: absolute;
+    background: #fff;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    z-index: 1100;
+    max-height: 25rem;
+    overflow-y: auto;
+    padding: 0.5rem;
+    line-height: 1.4;
+}
+
+.combo-checkbox.open .combo-options {
+    display: block;
 }

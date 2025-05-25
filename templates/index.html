@@ -22,6 +22,7 @@
 
 <body>
     <div class="contenedor">
+
         <form id="filtro-form" class="filtro-panel" method="get">
             <div class="filtro-campo">
                 <label class="filtro-etiqueta" for="ref_ini">Ubicaciones</label>
@@ -33,14 +34,11 @@
                 </select>
             </div>
             <div class="filtro-campo">
-                <label class="filtro-etiqueta" for="ref_sel">Ubicación</label>
-                <select class="filtro-texto" name="ref_sel" id="ref_sel">
-                    <option value="">Todas</option>
-                    {% for ref in referencias_rango %}
-                    <option value="{{ ref.id }}" {% if ref_sel==ref.id %}selected{% endif %}>{{ ref.descripcion }}
-                    </option>
-                    {% endfor %}
-                </select>
+                <label class="filtro-etiqueta">Ubicación</label>
+                <div class="combo-checkbox" id="combo-checkbox">
+                    <div class="combo-label" tabindex="0"> -Seleccionar ubicaciones- ▼</div>
+                    <div class="combo-options" id="ref_sel_checkboxes"></div>
+                </div>
             </div>
             <div class="filtro-campo">
                 <button class="filtro-boton" type="submit">Filtrar</button>
@@ -59,6 +57,7 @@
         // Datos de Python a JS
         const items = {{ items| tojson }};
         const referencias = {{ referencias| tojson }};
+        window.ref_sel = {{ ref_sel | tojson | safe }};
         // Centrar el mapa en la primera coordenada o en un punto por defecto
         const center = items.length > 0 ? [items[0].latitud, items[0].longitud] : [-17.510, -63.164];
     </script>

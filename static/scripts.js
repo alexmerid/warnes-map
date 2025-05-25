@@ -1,22 +1,4 @@
 window.addEventListener('DOMContentLoaded', function () {
-    // Actualizar el segundo combo según el primero
-    const refIniSelect = document.getElementById('ref_ini');
-    const refSelSelect = document.getElementById('ref_sel');
-    if (refIniSelect && refSelSelect && typeof referencias !== 'undefined') {
-        refIniSelect.addEventListener('change', function () {
-            const refIni = parseInt(this.value);
-            refSelSelect.innerHTML = '<option value="">Todas</option>';
-            referencias.forEach(ref => {
-                if (ref.id > refIni && ref.id < refIni + 1000) {
-                    const opt = document.createElement('option');
-                    opt.value = ref.id;
-                    opt.textContent = `${ref.descripcion}`;
-                    refSelSelect.appendChild(opt);
-                }
-            });
-        });
-    }
-
 
     if (typeof items === 'undefined' || typeof center === 'undefined') return;
 
@@ -120,4 +102,49 @@ window.addEventListener('DOMContentLoaded', function () {
                 return 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png';
         }
     }
+
+    // Generar checkboxes dinámicamente según ref_ini
+    const refIniSelect = document.getElementById('ref_ini');
+    const refSelContainer = document.getElementById('ref_sel_checkboxes');
+
+    function renderCheckboxes() {
+        const refIni = parseInt(refIniSelect.value);
+        refSelContainer.innerHTML = '';
+        referencias.forEach(ref => {
+            if (ref.id > refIni && ref.id < refIni + 1000) {
+                const label = document.createElement('label');
+                label.style.display = 'block';
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.name = 'ref_sel';
+                checkbox.value = ref.id;
+                // Marcar como checked si ya estaba seleccionado (para mantener selección tras submit)
+                if (Array.isArray(window.ref_sel) && window.ref_sel.includes(ref.id)) {
+                    checkbox.checked = true;
+                }
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(' ' + ref.descripcion));
+                refSelContainer.appendChild(label);
+            }
+        });
+    }
+
+    // Combo desplegable para checkboxes
+    const combo = document.getElementById('combo-checkbox');
+    const label = combo.querySelector('.combo-label');
+    label.addEventListener('click', function () {
+        combo.classList.toggle('open');
+    });
+    // Cierra si se hace click fuera
+    document.addEventListener('click', function (e) {
+        if (!combo.contains(e.target)) {
+            combo.classList.remove('open');
+        }
+    });
+
+    // Inicializar selección previa (desde backend)
+    refIniSelect.addEventListener('change', renderCheckboxes);
+    renderCheckboxes(); // Llamar al cargar la página
 });
+
+
