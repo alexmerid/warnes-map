@@ -123,7 +123,7 @@ body {
 .filtro-texto {
     margin-right: 1rem;
     font-size: 1.4rem;
-    width: 24rem;
+    max-width: 24rem;
 }
 
 @media (max-width: 768px) {
@@ -142,6 +142,8 @@ body {
 
     .filtro-texto {
         flex: 1;
+        max-width: none;
+        width: 24rem;
     }
 
     .filtro-boton {
