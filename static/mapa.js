@@ -35,6 +35,12 @@ function iconoPorLuminaria(id_luminaria) {
     }
 };
 
+//Estado de la luminaria
+const estadoLuminaria = {
+    0: 'Malo',
+    1: 'Bueno'
+};
+
 window.initMap = function () {
     const center = items.length > 0
         ? { lat: parseFloat(items[0].latitud), lng: parseFloat(items[0].longitud) }
@@ -141,12 +147,12 @@ window.initMap = function () {
         // Construye el contenido del infowindow
         let content = `
             <b>Poste: ${group[0].id}</b><br>
-            <b>Observación:</b> ${group[0].observacion}<br>
+            <b>Observación:</b> ${group[0].observacion ? group[0].observacion : ''}<br>
             <hr>
         `;
         content += group.map(item => `
             <b>Luminaria:</b> ${item.tipo}${item.potencia ? ' ' + item.potencia + 'W' : ''}<br>
-            <b>Estado:</b> ${item.estado}<br>
+            <b>Estado:</b> ${item.estado ? estadoLuminaria[item.estado] : ''}<br>
         `).join('<hr>');
 
         const infowindow = new google.maps.InfoWindow({

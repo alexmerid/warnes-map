@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warnes Map</title>
+    <title>Warnes-Map</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='normalize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
@@ -14,7 +14,26 @@
         <a id="link-luminarias">Luminarias</a>
     </div>
     <div id="map"></div>
-    <div id="ubicaciones" class="panel-flotante">Ubicaciones</div>
+    <div id="ubicaciones" class="panel-flotante">
+        <form id="form-ubicaciones" class="form-ubicaciones" action="">
+            <fieldset id="filtro-ubicaciones">
+                <legend>Grupo de Ubicaciones</legend>
+            </fieldset>
+
+            <fieldset id="filtro-ubicacion">
+                <legend>Ubicación</legend>
+            </fieldset>
+            <div>
+                <label for="estLum">Estado Luminarias</label>
+                <select id="estado-luminaria" name="estLum">
+                    <option value="">--Todos--</option>
+                    <option value="0">Malo</option>
+                    <option value="1">Bueno</option>
+                </select>
+            </div>
+            <input class="boton" type="submit" value="Filtrar">
+        </form>
+    </div>
     <div id="luminarias" class="panel-flotante"> </div>
 
     <script>
