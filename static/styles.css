@@ -5,9 +5,10 @@
     --color-texto: #333;
     --color-boton: #3a8dc9;
 
-    --fuente-parrafo: 'Arial', sans-serif;
-    --fuente-titulo: 'Arial', sans-serif;
+    --fuente-principal: 'Arial', sans-serif;
+    --alto-menu: 3rem;
 }
+
 
 html {
     box-sizing: border-box;
@@ -21,18 +22,10 @@ html {
 }
 
 body {
-    font-family: var(--fuente-parrafo);
-    font-size: 1.4rem;
-    line-height: 1.5;
+    font-size: 16px;
+    font-family: var(--fuente-principal);
+    line-height: 1.2;
 }
-
-/** Globales **/
-.contenedor {
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-}
-
 
 /* Utilidades */
 .no-margin {
@@ -47,157 +40,85 @@ body {
     text-align: center;
 }
 
-#map {
-    height: 95vh;
+/* Estilos */
+a {
+    text-decoration: none;
+}
+
+.menu {
     width: 100%;
-}
-
-/* Puntos */
-.leaflet-popup-content {
-    font-family: var(--fuente-parrafo);
-    font-size: 1.4rem;
-    color: #333;
-}
-
-/* Control de capas */
-.leaflet-control-layers {
-    font-family: var(--fuente-parrafo);
-    font-size: 1.4rem;
-    color: #333;
-}
-
-/* Cluster de Puntos*/
-.marker-cluster-small {
-    background-color: rgba(75, 170, 240, 0.5);
-}
-
-.marker-cluster {
-    background-clip: padding-box;
-    width: 2rem !important;
-    height: 2rem !important;
-    margin-left: 0 !important;
-    margin-top: 0 !important;
-    border-radius: 1rem;
-}
-
-.marker-cluster div {
-    width: 2rem;
-    height: 2rem;
-    margin-left: -0.4rem;
-    margin-top: -0.4rem;
-    background-color: rgb(75, 170, 240);
-    text-align: center;
-    border-radius: 1rem;
-    font: 1.4rem "Helvetica Neue", Arial, Helvetica, sans-serif;
-    color: #000;
-    line-height: 2rem;
-}
-
-.marker-cluster span {
-    line-height: 2rem;
-}
-
-
-/* Panel de Filtrado */
-.filtro-panel {
-    background: var(--color-fondo);
-    border: 0.1rem solid #bbb;
-    padding: 0.5rem;
+    height: var(--alto-menu);
+    background: #1976d2;
+    color: #fff;
     display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
-
-.filtro-campo {
-    display: flex;
-    padding: 0 0.5rem;
-}
-
-
-.filtro-etiqueta {
+.menu a {
+    color: #fff;
+    margin-right: 2rem;
     font-weight: bold;
-    width: 9rem;
-    text-align: right;
-    padding: 0.3rem;
-}
-
-.filtro-texto {
-    margin-right: 1rem;
-    font-size: 1.4rem;
-    max-width: 24rem;
-}
-
-@media (max-width: 768px) {
-    .filtro-panel {
-        flex-direction: column;
-    }
-
-    .filtro-campo {
-        margin-bottom: 1rem;
-        justify-content: end;
-    }
-
-    .filtro-etiqueta {
-        flex: 0 0 9rem;
-    }
-
-    .filtro-texto {
-        flex: 1;
-        max-width: none;
-        width: 24rem;
-    }
-
-    .filtro-boton {
-        margin-right: 1rem;
-    }
-
-}
-
-.filtro-boton {
-    font-family: var(--fuente-titulo);
-    color: var(--color-fondo);
-    background-color: var(--color-boton);
-    border: none;
-    padding: 0.4rem 2rem;
-    font-size: 1.4rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 0.6rem;
     cursor: pointer;
-}
-
-/* Combo de checkboxes */
-.combo-checkbox {
-    position: relative;
-    width: 100%;
-    line-height: 1.1;
-}
-
-.combo-label {
-    background-color: #e9e9ed;
-    border: 1px solid #bbb;
-    border-radius: 0.4rem;
+    font-size: 1.4rem;
+    transition: background 0.2s, color 0.2s;
+    border-radius: 4px 4px 0 0;
     padding: 0.5rem 1rem;
-    cursor: pointer;
-    user-select: none;
-
-    margin-right: 1rem;
+    text-transform: uppercase;
 }
 
-.combo-options {
-    display: none;
-    position: absolute;
+.menu a.activo {
     background: #fff;
-    border: 1px solid #bbb;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    z-index: 1100;
-    max-height: 25rem;
-    overflow-y: auto;
-    padding: 0.5rem;
-    line-height: 1.4;
+    color: #1976d2;
 }
 
-.combo-checkbox.open .combo-options {
-    display: block;
+.panel-flotante {
+    display: none;
+    position: fixed;
+    top: var(--alto-menu);
+    /* debajo del menú */
+    left: 16px;
+    min-width: 22rem;
+    max-width: 360rem;
+    background: #fff;
+    border: 1px solid #1976d2;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    padding: 1rem;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* Mapa */
+#map {
+    width: 100vw;
+    height: calc(100vh - var(--alto-menu));
+    margin-top: var(--alto-menu);
+}
+
+/* Círculo para luminarias en un mismo poste */
+.custom-label-circle {
+    background: #fff;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #1976d2;
+    /* Color del borde */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    font-size: 14px;
+    color: #1976d2;
+    margin-top: -11px;
+    /* Centra el círculo sobre el pin */
+    margin-left: -11px;
+    pointer-events: none;
 }

@@ -19,21 +19,12 @@ mysql.init_app(app)
 # Ruta principal
 @app.route('/')
 def index():
-    ref_ini = request.args.get('ref_ini', default=1000, type=int)
-    ref_sel = request.args.getlist('ref_sel', type=int)
 
     conn = mysql.get_db()
     cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM referencia ORDER BY id")
     referencias = cursor.fetchall()
-
-    # Primer combo: referencias con id múltiplo de 1000
-    referencias_mil = [ref for ref in referencias if ref['id'] % 1000 == 0]
-
-    # Segundo combo: referencias dentro del rango seleccionado
-    referencias_rango = [
-        ref for ref in referencias if ref_ini < ref['id'] < ref_ini + 1000]
 
     sql = """
     SELECT
@@ -50,29 +41,18 @@ def index():
         poste p
         inner join poste_luminaria pl on p.id = pl.id_poste
         inner join luminaria l on pl.id_luminaria = l.id
+    WHERE p.id_referencia = %s
+    ORDER BY p.id;
     """
-    params = []
-    if ref_sel:
-        sql += " WHERE p.id_referencia IN %s"
-        params.append(tuple(ref_sel))
-    else:
-        sql += " WHERE p.id_referencia >= %s AND p.id_referencia < %s"
-        params.extend([ref_ini, ref_ini + 1000])
 
-    sql += " ORDER BY p.id;"
-
-    cursor.execute(sql, params)
+    cursor.execute(sql, (1000,))
     items = cursor.fetchall()
     cursor.close()
 
     return render_template(
         'index.html',
         items=items,
-        referencias=referencias,
-        referencias_mil=referencias_mil,
-        referencias_rango=referencias_rango,
-        ref_ini=ref_ini,
-        ref_sel=ref_sel
+        referencias=referencias
     )
 
 
