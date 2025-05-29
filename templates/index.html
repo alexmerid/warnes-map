@@ -22,8 +22,8 @@
                 <fieldset id="filtro-ubicaciones">
                     <legend>Grupo de Ubicaciones</legend>
                     <label class="ubicaciones-label">
-                        <input type="checkbox" class="ubicaciones-checkbox" name="ref_mil_todos" value="on" {% if
-                            todos=="on" %}checked{% endif %}>
+                        <input id="ubicaciones-todos" type="checkbox" class="ubicaciones-checkbox" name="ref_mil_todos"
+                            value="on" {% if todos=="on" %}checked{% endif %}>
                         Todos
                     </label>
                     {% for ref in referencias_mil %}

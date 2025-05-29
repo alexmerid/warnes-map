@@ -68,8 +68,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function renderRangoCheckboxes() {
         const cont = document.getElementById('rango-checkboxes');
         cont.innerHTML = '';
+        const todosCb = document.getElementById('ubicaciones-todos');
         // Si hay más de un ref_mil o "Todos" está seleccionado, no mostrar nada
-        if (todos === "on" || checkedMil().length !== 1) {
+        // if (todos === "on" || checkedMil().length !== 1) {
+        if ((todosCb && todosCb.checked) || checkedMil().length !== 1) {
             return;
         }
         const refIni = checkedMil()[0];
