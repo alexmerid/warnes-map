@@ -91,9 +91,9 @@ form {
     position: fixed;
     top: var(--alto-menu);
     /* debajo del menú */
-    left: 16px;
+    left: 1rem;
     min-width: 22rem;
-    max-width: 360rem;
+    max-width: 50rem;
     background: #fff;
     border: 1px solid #1976d2;
     border-radius: 8px;
@@ -135,12 +135,12 @@ form {
 /* Panel de Ubicaciones */
 .form-ubicaciones {
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     align-items: flex-start;
 }
 
 .form-ubicaciones fieldset {
-    min-width: 200px;
+    min-width: 180px;
     border: 1px solid #1976d2;
     border-radius: 6px;
     padding: 1rem;
