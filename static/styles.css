@@ -27,6 +27,19 @@ body {
     line-height: 1.2;
 }
 
+
+a {
+    text-decoration: none;
+}
+
+label {
+    font-size: 1.4rem;
+}
+
+form {
+    margin: 0;
+}
+
 /* Utilidades */
 .no-margin {
     margin: 0;
@@ -40,11 +53,7 @@ body {
     text-align: center;
 }
 
-/* Estilos */
-a {
-    text-decoration: none;
-}
-
+/* Estilos especificos */
 .menu {
     width: 100%;
     height: var(--alto-menu);
@@ -121,4 +130,69 @@ a {
     /* Centra el círculo sobre el pin */
     margin-left: -11px;
     pointer-events: none;
+}
+
+/* Panel de Ubicaciones */
+.form-ubicaciones {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.form-ubicaciones fieldset {
+    min-width: 200px;
+    border: 1px solid #1976d2;
+    border-radius: 6px;
+    padding: 1rem;
+    background: #f8fafd;
+}
+
+.ubicaciones-label,
+.ubicacion-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    /* font-size: 1.4rem; */
+}
+
+.ubicaciones-checkbox,
+.ubicacion-checkbox {
+    accent-color: #1976d2;
+    margin-right: 0.5em;
+    transform: scale(1.2);
+}
+
+.pie-ubicaciones {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0.5rem 0;
+    padding: 0;
+}
+
+.estLum-label {
+    margin-right: 0.5rem;
+    /* font-size: 1.4rem; */
+}
+
+.estLum-select {
+    width: 10rem;
+    padding: 0.2rem;
+    border: 1px solid #1976d2;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 1.4rem;
+    color: #333;
+}
+
+.boton {
+    background: var(--color-boton);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.4rem;
+    transition: background 0.2s, transform 0.2s;
+    width: 10rem;
+    text-transform: uppercase;
 }

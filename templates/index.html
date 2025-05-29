@@ -13,32 +13,58 @@
         <a id="link-ubicaciones">Ubicaciones</a>
         <a id="link-luminarias">Luminarias</a>
     </div>
-    <div id="map"></div>
-    <div id="ubicaciones" class="panel-flotante">
-        <form id="form-ubicaciones" class="form-ubicaciones" action="">
-            <fieldset id="filtro-ubicaciones">
-                <legend>Grupo de Ubicaciones</legend>
-            </fieldset>
 
-            <fieldset id="filtro-ubicacion">
-                <legend>Ubicación</legend>
-            </fieldset>
-            <div>
-                <label for="estLum">Estado Luminarias</label>
-                <select id="estado-luminaria" name="estLum">
-                    <option value="">--Todos--</option>
-                    <option value="0">Malo</option>
-                    <option value="1">Bueno</option>
-                </select>
+    <div id="map"></div>
+
+    <div id="ubicaciones" class="panel-flotante">
+        <form id="form-ubicaciones" action="" method="get">
+            <div class="form-ubicaciones">
+                <fieldset id="filtro-ubicaciones">
+                    <legend>Grupo de Ubicaciones</legend>
+                    <label class="ubicaciones-label">
+                        <input type="checkbox" class="ubicaciones-checkbox" name="ref_mil_todos" value="on" {% if
+                            todos=="on" %}checked{% endif %}>
+                        Todos
+                    </label>
+                    {% for ref in referencias_mil %}
+                    <label class="ubicaciones-label">
+                        <input type="checkbox" class="ubicaciones-checkbox" name="ref_mil" value="{{ ref.id }}" {% if
+                            ref.id in ref_mil %}checked{% endif %}>
+                        {{ ref.descripcion }}
+                    </label>
+                    {% endfor %}
+                </fieldset>
+
+                <fieldset id="filtro-ubicacion">
+                    <legend>Ubicación</legend>
+                    <div id="rango-checkboxes"></div>
+                </fieldset>
             </div>
-            <input class="boton" type="submit" value="Filtrar">
+            <div class="pie-ubicaciones">
+                <div>
+                    <label class="estLum-label" for="estLum">Estado Luminarias</label>
+                    <select class="estLum-select" id="estado-luminaria" name="estLum">
+                        <option value="" {% if not est_lum %}selected{% endif %}>-- Todos --</option>
+                        <option value="0" {% if est_lum=="0" %}selected{% endif %}>Malo</option>
+                        <option value="1" {% if est_lum=="1" %}selected{% endif %}>Bueno</option>
+                    </select>
+                </div>
+                <div>
+                    <input class="boton" type="submit" value="Filtrar" id="btn-filtrar">
+                </div>
+            </div>
         </form>
     </div>
+
     <div id="luminarias" class="panel-flotante"> </div>
 
     <script>
         // Datos enviados desde Flask
         const items = {{ items | tojson }};
+        const referencias = {{ referencias| tojson }};
+        const ref_mil = {{ ref_mil| tojson }};
+        const ref_rango = {{ ref_rango| tojson }};
+        const todos = "{{ todos or '' }}";
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrGN5qq86Il9p4-athZfhTr1DHaXMOR3s"></script>

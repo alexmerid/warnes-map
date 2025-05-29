@@ -152,7 +152,7 @@ window.initMap = function () {
         `;
         content += group.map(item => `
             <b>Luminaria:</b> ${item.tipo}${item.potencia ? ' ' + item.potencia + 'W' : ''}<br>
-            <b>Estado:</b> ${item.estado ? estadoLuminaria[item.estado] : ''}<br>
+            <b>Estado:</b> ${item.estado === null || item.estado === undefined ? '' : estadoLuminaria[item.estado]}<br>
         `).join('<hr>');
 
         const infowindow = new google.maps.InfoWindow({
