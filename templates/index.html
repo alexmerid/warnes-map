@@ -12,6 +12,7 @@
     <div id="menu" class="menu">
         <a id="link-ubicaciones">Ubicaciones</a>
         <a id="link-luminarias">Luminarias</a>
+        <a id="link-descargar" href="#">Descargar</a>
     </div>
 
     <div id="map"></div>
@@ -68,9 +69,11 @@
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrGN5qq86Il9p4-athZfhTr1DHaXMOR3s"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
     <script src="{{ url_for('static', filename='mapa.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='excel.js') }}"></script>
 
 </body>
 

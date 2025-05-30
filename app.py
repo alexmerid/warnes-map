@@ -34,8 +34,7 @@ def index():
     # Agrupar referencias múltiplos de 1000
     referencias_mil = [ref for ref in referencias if ref['id'] % 1000 == 0]
     ref_ini = ref_mil[0] if ref_mil else 1000
-    referencias_rango = [
-        ref for ref in referencias if ref_ini < ref['id'] < ref_ini + 1000]
+    # referencias_rango = [ref for ref in referencias if ref_ini < ref['id'] < ref_ini + 1000]
 
     sql = """
     SELECT
