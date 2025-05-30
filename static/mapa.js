@@ -134,7 +134,8 @@ window.initMap = function () {
             position: position,
             map: map,
             icon: iconoPorLuminaria(group[0].id_luminaria),
-            label: labelOptions
+            label: labelOptions,
+            // title: `${group[0].id}`
         });
 
         // Agrupa los marcadores por id_luminaria
@@ -154,6 +155,9 @@ window.initMap = function () {
             <b>Luminaria:</b> ${item.tipo}${item.potencia ? ' ' + item.potencia + 'W' : ''}<br>
             <b>Estado:</b> ${item.estado === null || item.estado === undefined ? '' : estadoLuminaria[item.estado]}<br>
         `).join('<hr>');
+        content += `<hr>
+            <a href="https://www.google.com/maps?q=${group[0].latitud},${group[0].longitud}" target="_blank">Ver en Google Maps
+            </a>`;
 
         const infowindow = new google.maps.InfoWindow({
             content: content
