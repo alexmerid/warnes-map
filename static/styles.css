@@ -28,8 +28,10 @@ body {
 }
 
 
-a {
+a,
+a:visited {
     text-decoration: none;
+    color: blue;
 }
 
 label {
@@ -71,7 +73,7 @@ form {
 
 .menu a {
     color: #fff;
-    margin-right: 2rem;
+    margin-right: 1rem;
     font-weight: bold;
     cursor: pointer;
     font-size: 1.4rem;
@@ -130,6 +132,10 @@ form {
     /* Centra el círculo sobre el pin */
     margin-left: -11px;
     pointer-events: none;
+}
+
+.enlace-maps:hover {
+    text-decoration: underline;
 }
 
 /* Panel de Ubicaciones */

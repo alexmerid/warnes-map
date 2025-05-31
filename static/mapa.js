@@ -156,7 +156,10 @@ window.initMap = function () {
             <b>Estado:</b> ${item.estado === null || item.estado === undefined ? '' : estadoLuminaria[item.estado]}<br>
         `).join('<hr>');
         content += `<hr>
-            <a href="https://www.google.com/maps?q=${group[0].latitud},${group[0].longitud}" target="_blank">Ver en Google Maps
+            <a href="https://www.google.com/maps?q=${group[0].latitud},${group[0].longitud}" 
+                target="_blank"
+                class="enlace-maps">
+                Ver en Google Maps
             </a>`;
 
         const infowindow = new google.maps.InfoWindow({

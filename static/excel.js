@@ -20,18 +20,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // 3. Elegir columnas y orden
         const columnas = ['id', 'observacion', 'tipo', 'potencia', 'estado'];
+        const titulos = ['ID Poste', 'Observación', 'Tipo', 'Potencia', 'Estado'];
+
         const datosParaExcel = datosFiltrados.map(item => {
             const obj = {};
             columnas.forEach(col => obj[col] = item[col]);
             return obj;
         });
 
-        // 4. Generar el Excel
-        const ws = XLSX.utils.json_to_sheet(datosParaExcel);
+        // 4. Generar el Excel con encabezados personalizados
+        const ws = XLSX.utils.json_to_sheet(datosParaExcel, { header: columnas });
+
+        // Reemplaza los encabezados por los títulos personalizados
+        titulos.forEach((titulo, idx) => {
+            const letraCol = XLSX.utils.encode_col(idx); // A, B, C, ...
+            ws[letraCol + "1"].v = titulo;
+        });
+
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Luminarias");
 
         // 5. Descargar el archivo
-        XLSX.writeFile(wb, "luminarias.xlsx");
+        XLSX.writeFile(wb, "Luminarias.xlsx");
     });
 });
