@@ -48,7 +48,8 @@ window.initMap = function () {
 
     const map = new google.maps.Map(document.getElementById('map'), {
         zoom: 14,
-        center: center
+        center: center,
+        gestureHandling: "greedy" // <-- Esto permite mover el mapa con un solo dedo en móvil
     });
 
     // Agrupa los items por latitud y longitud exacta
@@ -158,7 +159,7 @@ window.initMap = function () {
         content += `<hr>
             <a href="https://www.google.com/maps?q=${group[0].latitud},${group[0].longitud}" 
                 target="_blank"
-                class="enlace-maps">
+                class="link-maps">
                 Ver en Google Maps
             </a>`;
 

@@ -2,11 +2,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- Paneles flotantes ---
     const panels = {
         ubicaciones: document.getElementById('ubicaciones'),
-        luminarias: document.getElementById('luminarias')
+        luminarias: document.getElementById('luminarias'),
+        planillas: document.getElementById('planillas')
     };
     const links = {
         ubicaciones: document.getElementById('link-ubicaciones'),
-        luminarias: document.getElementById('link-luminarias')
+        luminarias: document.getElementById('link-luminarias'),
+        planillas: document.getElementById('link-planillas')
     };
 
     function showPanel(panelName) {
@@ -42,6 +44,15 @@ document.addEventListener('DOMContentLoaded', function () {
             hidePanels();
         } else {
             showPanel('luminarias');
+        }
+    });
+
+    links.planillas.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (panels.planillas.style.display === 'block') {
+            hidePanels();
+        } else {
+            showPanel('planillas');
         }
     });
 

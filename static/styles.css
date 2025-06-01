@@ -134,7 +134,7 @@ form {
     pointer-events: none;
 }
 
-.enlace-maps:hover {
+.link-maps:hover {
     text-decoration: underline;
 }
 
@@ -201,4 +201,26 @@ form {
     transition: background 0.2s, transform 0.2s;
     width: 10rem;
     text-transform: uppercase;
+}
+
+/* Panel de Planillas */
+.link-planilla,
+.link-planilla:visited {
+    color: #fff;
+    background: var(--color-boton);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.4rem;
+    display: inline-block;
+    margin: 0.5rem 0;
+    width: 100%;
+    /* text-align: center; */
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.link-planilla:hover {
+    background: #1976d2;
+    transform: scale(1.02);
 }
