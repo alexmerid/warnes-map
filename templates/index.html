@@ -27,7 +27,7 @@
                             value="on" {% if todos=="on" %}checked{% endif %}>
                         Todos
                     </label>
-                    {% for ref in referencias_mil %}
+                    {% for ref in referencias if ref.id % 1000 == 0 %}
                     <label class="ubicaciones-label">
                         <input type="checkbox" class="ubicaciones-checkbox" name="ref_mil" value="{{ ref.id }}" {% if
                             ref.id in ref_mil %}checked{% endif %}>
