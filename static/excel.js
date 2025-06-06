@@ -15,11 +15,19 @@ function descargarExcel(e, columnas, titulos) {
         return;
     }
 
-    // 3. Las columnas y sus títulos se pasan como parámetros
-
+    // 3. Construir los datos para Excel, usando getLuminariaInfo para tipo y potencia
     const datosParaExcel = datosFiltrados.map(item => {
         const obj = {};
-        columnas.forEach(col => obj[col] = item[col]);
+        columnas.forEach(col => {
+            if (col == 'estado') {
+                obj[col] = item[col] === null || item[col] === undefined ? '' : estadoLuminaria[item[col]];
+            } else if (col === 'tipo' || col === 'potencia') {
+                const info = getLuminariaInfo(item.id_luminaria);
+                obj[col] = info[col] || '';
+            } else {
+                obj[col] = item[col];
+            }
+        });
         return obj;
     });
 

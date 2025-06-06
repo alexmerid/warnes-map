@@ -68,10 +68,22 @@
     <script>
         // Datos enviados desde Flask
         const items = {{ items | tojson }};
+        const luminarias = {{ luminarias | tojson }};
         const referencias = {{ referencias| tojson }};
         const ref_mil = {{ ref_mil| tojson }};
         const ref_rango = {{ ref_rango| tojson }};
         const todos = "{{ todos or '' }}";
+
+        // Función para obtener información de una luminaria por su ID
+        function getLuminariaInfo(id) {
+            return luminarias.find(l => l.id === id) || {};
+        }
+
+        // Variable para convertir el estado en texto
+        const estadoLuminaria = {
+            0: 'Malo',
+            1: 'Bueno'
+        };
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrGN5qq86Il9p4-athZfhTr1DHaXMOR3s"></script>

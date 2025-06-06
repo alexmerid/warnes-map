@@ -35,12 +35,6 @@ function iconoPorLuminaria(id_luminaria) {
     }
 };
 
-//Estado de la luminaria
-const estadoLuminaria = {
-    0: 'Malo',
-    1: 'Bueno'
-};
-
 window.initMap = function () {
     const center = items.length > 0
         ? { lat: parseFloat(items[0].latitud), lng: parseFloat(items[0].longitud) }
@@ -66,10 +60,11 @@ window.initMap = function () {
         items.forEach(item => {
             const key = item.id_luminaria;
             if (!resumen[key]) {
+                const info = getLuminariaInfo(item.id_luminaria);
                 resumen[key] = {
                     id_luminaria: item.id_luminaria,
-                    tipo: item.tipo,
-                    potencia: item.potencia,
+                    tipo: info.tipo,
+                    potencia: info.potencia,
                     cantidad: 0
                 };
             }
@@ -152,10 +147,13 @@ window.initMap = function () {
             <b>Observación:</b> ${group[0].observacion ? group[0].observacion : ''}<br>
             <hr>
         `;
-        content += group.map(item => `
-            <b>Luminaria:</b> ${item.tipo}${item.potencia ? ' ' + item.potencia + 'W' : ''}<br>
-            <b>Estado:</b> ${item.estado === null || item.estado === undefined ? '' : estadoLuminaria[item.estado]}<br>
-        `).join('<hr>');
+        content += group.map(item => {
+            const info = getLuminariaInfo(item.id_luminaria);
+            return `
+                <b>Luminaria:</b> ${info.tipo || ''}${info.potencia ? ' ' + info.potencia + 'W' : ''}<br>
+                <b>Estado:</b> ${item.estado === null || item.estado === undefined ? '' : estadoLuminaria[item.estado]}<br>
+            `;
+        }).join('<hr>');
         content += `<hr>
             <a href="https://www.google.com/maps?q=${group[0].latitud},${group[0].longitud}" 
                 target="_blank"

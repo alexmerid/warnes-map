@@ -220,6 +220,7 @@ form {
     transition: background 0.2s, transform 0.2s;
 }
 
+.boton:hover,
 .link-planilla:hover {
     background: #1976d2;
     transform: scale(1.02);
