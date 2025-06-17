@@ -4,10 +4,14 @@ from pymysql.cursors import DictCursor
 
 app = Flask(__name__)
 
+# Cargar configuración desde config.py
+app.config.from_pyfile('config.py')
+
 # Configuración de la conexión MySQL
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
+# El usuario y password ahora se leen desde config.py
+# app.config['MYSQL_DATABASE_USER'] = 'root'
+# app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
 app.config['MYSQL_DATABASE_DB'] = 'warnes'
 app.config['MYSQL_CURSORCLASS'] = DictCursor
 
@@ -93,7 +97,8 @@ def index():
         ref_mil=ref_mil or [1000],  # Por defecto 1000 seleccionado
         ref_rango=ref_rango,
         todos=todos,
-        est_lum=est_lum
+        est_lum=est_lum,
+        maps_key=app.config['MAPS_KEY']
     )
 
 

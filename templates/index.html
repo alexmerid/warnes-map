@@ -74,6 +74,9 @@
         const ref_rango = {{ ref_rango| tojson }};
         const todos = "{{ todos or '' }}";
 
+        // Ruta para los archivos estáticos
+        const STATIC_URL = "{{ url_for('static', filename='') }}";
+
         // Función para obtener información de una luminaria por su ID
         function getLuminariaInfo(id) {
             return luminarias.find(l => l.id === id) || {};
@@ -86,7 +89,7 @@
         };
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrGN5qq86Il9p4-athZfhTr1DHaXMOR3s"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ maps_key }}"></script>
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
     <script src="{{ url_for('static', filename='mapa.js') }}"></script>

@@ -5,12 +5,12 @@ function iconoPorLuminaria(id_luminaria) {
         case 1070:
         case 1150:
         case 1250:
-            return '/static/img/yellow-dot20.png';
+            return STATIC_URL + 'img/yellow-dot20.png';
         case 2000:
         case 2125:
         case 2250:
         case 2400:
-            return '/static/img/orange-dot20.png';
+            return STATIC_URL + 'img/orange-dot20.png';
         case 3000:
         case 3035:
         case 3070:
@@ -21,7 +21,7 @@ function iconoPorLuminaria(id_luminaria) {
         case 4040:
         case 5000:
         case 5100:
-            return '/static/img/purple-dot20.png';
+            return STATIC_URL + 'img/purple-dot20.png';
         case 6000:
         case 6035:
         case 6040:
@@ -29,9 +29,9 @@ function iconoPorLuminaria(id_luminaria) {
         case 6060:
         case 6100:
         case 6150:
-            return '/static/img/blue-dot20.png';
+            return STATIC_URL + 'img/blue-dot20.png';
         default:
-            return '/static/img/red-dot20.png';
+            return STATIC_URL + 'img/red-dot20.png';
     }
 };
 
