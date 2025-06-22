@@ -30,6 +30,12 @@ function iconoPorLuminaria(id_luminaria) {
         case 6100:
         case 6150:
             return STATIC_URL + 'img/blue-dot20.png';
+        case 7000:
+        case 7040:
+        case 7075:
+        case 7120:
+        case 7150:
+            return STATIC_URL + 'img/green-dot20.png';
         default:
             return STATIC_URL + 'img/red-dot20.png';
     }
@@ -152,6 +158,8 @@ window.initMap = function () {
             return `
                 <b>Luminaria:</b> ${info.tipo || ''}${info.potencia ? ' ' + info.potencia + 'W' : ''}<br>
                 <b>Estado:</b> ${item.estado === null || item.estado === undefined ? '' : estadoLuminaria[item.estado]}<br>
+                ${item.codigo !== null && item.codigo !== undefined ? '<b>Código: </b>' + item.codigo + '<br>' : ''}
+                ${item.fecha_inst !== null && item.fecha_inst !== undefined ? '<b>Fecha Inst.: </b>' + item.fecha_inst + '<br>' : ''}
             `;
         }).join('<hr>');
         content += `<hr>

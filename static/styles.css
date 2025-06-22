@@ -175,13 +175,15 @@ form {
     padding: 0;
 }
 
-.estLum-label {
+.estLum-label,
+.fecha-label {
     margin-right: 0.5rem;
     /* font-size: 1.4rem; */
 }
 
-.estLum-select {
-    width: 10rem;
+.estLum-select,
+.fecha-input {
+    width: 12rem;
     padding: 0.2rem;
     border: 1px solid #1976d2;
     border-radius: 4px;

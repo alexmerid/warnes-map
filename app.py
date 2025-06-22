@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from flaskext.mysql import MySQL
 from pymysql.cursors import DictCursor
+from datetime import date
 
 app = Flask(__name__)
 
@@ -37,20 +38,24 @@ def index():
     ref_mil = request.args.getlist('ref_mil', type=int)
     ref_rango = request.args.getlist('ref_rango', type=int)
     todos = request.args.get('ref_mil_todos')
-    est_lum = request.args.get('estLum')
+    est_lum = request.args.get('estLum')  # QUITAR
+    fecha = request.args.get('fecha') or date.today().isoformat()
 
-    sql = """
-    SELECT
-        p.id,
-        p.latitud,
-        p.longitud,
-        p.observacion,
-        pl.id_luminaria,
-        pl.estado,
-        p.id_referencia
+    sql = """ WITH pl_vigentes AS
+        (SELECT *
+        FROM poste_luminaria
+        WHERE (fecha_inst IS NULL AND fecha_desinst IS NULL)
+            OR (fecha_inst IS NULL AND fecha_desinst >
+        """
+    sql += f" '{fecha}') OR (fecha_inst <= '{fecha}' AND fecha_desinst IS NULL)"
+    sql += f" OR (fecha_inst <= '{fecha}' AND fecha_desinst > '{fecha}'))"
+
+    sql += """
+    SELECT p.id, p.latitud, p.longitud, p.observacion, p.id_referencia,
+        pl.id_luminaria, pl.estado, DATE_FORMAT(fecha_inst, '%%d/%%m/%%Y') as fecha_inst, pl.codigo
     FROM
         poste p
-        INNER JOIN poste_luminaria pl ON p.id = pl.id_poste
+        INNER JOIN pl_vigentes pl ON p.id = pl.id_poste
     """
     params = []
     where = []
@@ -76,10 +81,11 @@ def index():
             rangos.append("(p.id_referencia BETWEEN %s AND %s)")
             params.extend([ref, ref + 999])
         where.append(" OR ".join(rangos))
-    # Añadir condición para el estado de luminaria si corresponde
-    if est_lum in ("0", "1"):
-        where.append("pl.estado = %s")
-        params.append(int(est_lum))
+
+    # Añadir condición para el estado de luminaria si corresponde  # QUITAR
+    # if est_lum in ("0", "1"):
+    #     where.append("pl.estado = %s")
+    #     params.append(int(est_lum))
 
     if where:
         sql += " WHERE " + \
@@ -97,7 +103,8 @@ def index():
         ref_mil=ref_mil or [1000],  # Por defecto 1000 seleccionado
         ref_rango=ref_rango,
         todos=todos,
-        est_lum=est_lum,
+        est_lum=est_lum,  # QUITAR
+        fecha=fecha,
         maps_key=app.config['MAPS_KEY']
     )
 

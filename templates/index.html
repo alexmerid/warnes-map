@@ -42,13 +42,17 @@
                 </fieldset>
             </div>
             <div class="pie-ubicaciones">
-                <div>
+                <div hidden>
                     <label class="estLum-label" for="estado-luminaria">Estado Luminarias</label>
                     <select class="estLum-select" id="estado-luminaria" name="estLum">
                         <option value="" {% if not est_lum %}selected{% endif %}>-- Todos --</option>
                         <option value="0" {% if est_lum=="0" %}selected{% endif %}>Malo</option>
                         <option value="1" {% if est_lum=="1" %}selected{% endif %}>Bueno</option>
                     </select>
+                </div>
+                <div>
+                    <label class="fecha-label" for="fecha">Fecha</label>
+                    <input class="fecha-input" type="date" id="fecha" name="fecha" value="{{ fecha }}">
                 </div>
                 <div>
                     <input class="boton" type="submit" value="Filtrar" id="btn-filtrar">
