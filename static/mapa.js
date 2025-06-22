@@ -151,6 +151,7 @@ window.initMap = function () {
         let content = `
             <b>Poste: ${group[0].id}</b><br>
             <b>Observación:</b> ${group[0].observacion ? group[0].observacion : ''}<br>
+            <b>Via:</b> ${getViaDescripcion(group[0].id_via)}<br>
             <hr>
         `;
         content += group.map(item => {

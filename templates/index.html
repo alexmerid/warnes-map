@@ -74,6 +74,7 @@
         const items = {{ items | tojson }};
         const luminarias = {{ luminarias | tojson }};
         const referencias = {{ referencias| tojson }};
+        const vias = {{ vias| tojson }};
         const ref_mil = {{ ref_mil| tojson }};
         const ref_rango = {{ ref_rango| tojson }};
         const todos = "{{ todos or '' }}";
@@ -84,6 +85,11 @@
         // Función para obtener información de una luminaria por su ID
         function getLuminariaInfo(id) {
             return luminarias.find(l => l.id === id) || {};
+        }
+
+        // Función para obtener la descripcion de una via por su ID
+        function getViaDescripcion(id) {
+            return vias.find(v => v.id === id)?.descripcion || '';
         }
 
         // Variable para convertir el estado en texto

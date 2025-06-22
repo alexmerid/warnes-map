@@ -34,6 +34,9 @@ def index():
     cursor.execute("SELECT id, tipo, potencia FROM luminaria ORDER BY id")
     luminarias = cursor.fetchall()
 
+    cursor.execute("SELECT id, descripcion FROM via ORDER BY id")
+    vias = cursor.fetchall()
+
     # Obtener filtros del formulario
     ref_mil = request.args.getlist('ref_mil', type=int)
     ref_rango = request.args.getlist('ref_rango', type=int)
@@ -51,7 +54,7 @@ def index():
     sql += f" OR (fecha_inst <= '{fecha}' AND fecha_desinst > '{fecha}'))"
 
     sql += """
-    SELECT p.id, p.latitud, p.longitud, p.observacion, p.id_referencia,
+    SELECT p.id, p.latitud, p.longitud, p.observacion, p.id_referencia, p.id_via,
         pl.id_luminaria, pl.estado, DATE_FORMAT(fecha_inst, '%%d/%%m/%%Y') as fecha_inst, pl.codigo
     FROM
         poste p
@@ -100,6 +103,7 @@ def index():
         items=items,
         referencias=referencias,
         luminarias=luminarias,
+        vias=vias,
         ref_mil=ref_mil or [1000],  # Por defecto 1000 seleccionado
         ref_rango=ref_rango,
         todos=todos,
