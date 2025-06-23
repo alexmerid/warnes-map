@@ -44,16 +44,14 @@ def index():
     est_lum = request.args.get('estLum')  # QUITAR
     fecha = request.args.get('fecha') or date.today().isoformat()
 
-    sql = """ WITH pl_vigentes AS
-        (SELECT *
+    sql = f"""
+    WITH pl_vigentes AS
+    (SELECT *
         FROM poste_luminaria
         WHERE (fecha_inst IS NULL AND fecha_desinst IS NULL)
-            OR (fecha_inst IS NULL AND fecha_desinst >
-        """
-    sql += f" '{fecha}') OR (fecha_inst <= '{fecha}' AND fecha_desinst IS NULL)"
-    sql += f" OR (fecha_inst <= '{fecha}' AND fecha_desinst > '{fecha}'))"
-
-    sql += """
+            OR (fecha_inst IS NULL AND fecha_desinst > '{fecha}') 
+            OR (fecha_inst <= '{fecha}' AND fecha_desinst IS NULL)
+            OR (fecha_inst <= '{fecha}' AND fecha_desinst > '{fecha}'))
     SELECT p.id, p.latitud, p.longitud, p.observacion, p.id_referencia, p.id_via,
         pl.id_luminaria, pl.estado, DATE_FORMAT(fecha_inst, '%%d/%%m/%%Y') as fecha_inst, pl.codigo
     FROM
