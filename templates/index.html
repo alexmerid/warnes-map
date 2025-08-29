@@ -12,6 +12,7 @@
     <div id="menu" class="menu">
         <a id="link-ubicaciones">Ubicaciones</a>
         <a id="link-luminarias">Luminarias</a>
+        <a id="link-buscar">Buscar</a>
         <a id="link-planillas">Planillas</a>
     </div>
 
@@ -62,6 +63,15 @@
     </div>
 
     <div id="luminarias" class="panel-flotante">
+    </div>
+
+    <div id="buscar" class="panel-flotante">
+        <form id="form-buscar" action="" method="get">
+            <label for="buscar-input">Buscar Luminaria:</label>
+            <input type="text" id="buscar-input" name="buscar" placeholder="Ingrese ID o Descripción">
+            <input type="submit" value="Buscar">
+        </form>
+        <div id="resultados-busqueda"></div>
     </div>
 
     <div id="planillas" class="panel-flotante">

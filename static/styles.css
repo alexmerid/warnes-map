@@ -63,7 +63,7 @@ form {
     color: #fff;
     display: flex;
     align-items: center;
-    padding: 0 2rem;
+    padding: 0 0.5rem;
     box-sizing: border-box;
     position: fixed;
     top: 0;
@@ -91,14 +91,13 @@ form {
 .panel-flotante {
     display: none;
     position: fixed;
-    top: var(--alto-menu);
-    /* debajo del menú */
-    left: 1rem;
+    /* top: var(--alto-menu); */
+    /* left: -1rem; */
     min-width: 22rem;
     max-width: 50rem;
     background: #fff;
-    border: 1px solid #1976d2;
-    border-radius: 8px;
+    border: 2px solid #1976d2;
+    border-radius: 0 0 8px 8px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     z-index: 999;
     padding: 1rem;
