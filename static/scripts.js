@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const panels = {
         ubicaciones: document.getElementById('ubicaciones'),
         luminarias: document.getElementById('luminarias'),
-        buscar: document.getElementById('buscar'),
+        // buscar: document.getElementById('buscar'),
         planillas: document.getElementById('planillas')
     };
     const links = {
         ubicaciones: document.getElementById('link-ubicaciones'),
         luminarias: document.getElementById('link-luminarias'),
-        buscar: document.getElementById('link-buscar'),
+        // buscar: document.getElementById('link-buscar'),
         planillas: document.getElementById('link-planillas')
     };
 
@@ -22,11 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Muestra el panel y activa el link
         panels[panelName].style.display = 'block';
         links[panelName].classList.add('activo');
-
-        // --- Posiciona el panel debajo del link ---
-        const linkRect = links[panelName].getBoundingClientRect();
-        panels[panelName].style.top = `${linkRect.bottom}px`;
-        panels[panelName].style.left = `${linkRect.left - 2}px`;
     }
 
     function hidePanels() {
@@ -54,14 +49,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    links.buscar.addEventListener('click', function (e) {
+    /* links.buscar.addEventListener('click', function (e) {
         e.stopPropagation();
         if (panels.buscar.style.display === 'block') {
             hidePanels();
         } else {
             showPanel('buscar');
         }
-    });
+    }); */
 
     links.planillas.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -97,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
         cont.innerHTML = '';
         const todosCb = document.getElementById('ubicaciones-todos');
         // Si hay más de un ref_mil o "Todos" está seleccionado, no mostrar nada
-        // if (todos === "on" || checkedMil().length !== 1) {
         if ((todosCb && todosCb.checked) || checkedMil().length !== 1) {
             return;
         }

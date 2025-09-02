@@ -57,18 +57,24 @@ form {
 
 /* Estilos especificos */
 .menu {
-    width: 100%;
-    height: var(--alto-menu);
-    background: #1976d2;
-    color: #fff;
     display: flex;
     align-items: center;
-    padding: 0 0.5rem;
-    box-sizing: border-box;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
+    width: 100%;
+    height: var(--alto-menu);
+    background: #1976d2;
+    color: #fff;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+}
+
+.menu-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .menu a {
@@ -90,19 +96,21 @@ form {
 
 .panel-flotante {
     display: none;
-    position: fixed;
-    /* top: var(--alto-menu); */
-    /* left: -1rem; */
-    min-width: 22rem;
-    max-width: 50rem;
+    position: absolute;
+    top: 100%;
+    /* Justo debajo del link */
+    left: -0.2rem;
+    min-width: 26rem;
+    max-width: 72rem;
     background: #fff;
     border: 2px solid #1976d2;
     border-radius: 0 0 8px 8px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-    z-index: 999;
+    z-index: 1001;
     padding: 1rem;
     max-height: 80vh;
     overflow-y: auto;
+    color: var(--color-texto);
 }
 
 /* Mapa */
@@ -140,12 +148,13 @@ form {
 /* Panel de Ubicaciones */
 .form-ubicaciones {
     display: flex;
+    min-width: 42rem;
     gap: 1rem;
     align-items: flex-start;
 }
 
 .form-ubicaciones fieldset {
-    min-width: 180px;
+    min-width: 18rem;
     border: 1px solid #1976d2;
     border-radius: 6px;
     padding: 1rem;
@@ -157,14 +166,22 @@ form {
     display: block;
     margin-bottom: 0.5rem;
     cursor: pointer;
-    /* font-size: 1.4rem; */
+}
+
+.ubicacion-label {
+    font-size: 1.3rem;
 }
 
 .ubicaciones-checkbox,
-.ubicacion-checkbox {
+.ubicacion-checkbox,
+.filtro-luminaria {
     accent-color: #1976d2;
-    margin-right: 0.5em;
+    margin-right: 0.5rem;
     transform: scale(1.2);
+}
+
+.ubicacion-checkbox {
+    transform: scale(1.1);
 }
 
 .pie-ubicaciones {
@@ -213,9 +230,8 @@ form {
     font-weight: bold;
     font-size: 1.4rem;
     display: inline-block;
-    margin: 0.5rem 0;
-    width: 100%;
-    /* text-align: center; */
+    margin: 0.5rem 1rem;
+    width: 24rem;
     padding: 0.5rem;
     border-radius: 4px;
     transition: background 0.2s, transform 0.2s;

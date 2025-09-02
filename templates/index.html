@@ -9,74 +9,85 @@
 </head>
 
 <body>
+    <!-- Menú -->
     <div id="menu" class="menu">
-        <a id="link-ubicaciones">Ubicaciones</a>
-        <a id="link-luminarias">Luminarias</a>
-        <a id="link-buscar">Buscar</a>
-        <a id="link-planillas">Planillas</a>
-    </div>
-
-    <div id="map"></div>
-
-    <div id="ubicaciones" class="panel-flotante">
-        <form id="form-ubicaciones" action="" method="get">
-            <div class="form-ubicaciones">
-                <fieldset id="filtro-ubicaciones">
-                    <legend>Grupo de Ubicaciones</legend>
-                    <label class="ubicaciones-label">
-                        <input id="ubicaciones-todos" type="checkbox" class="ubicaciones-checkbox" name="ref_mil_todos"
-                            value="on" {% if todos=="on" %}checked{% endif %}>
-                        Todos
-                    </label>
-                    {% for ref in referencias if ref.id % 1000 == 0 %}
-                    <label class="ubicaciones-label">
-                        <input type="checkbox" class="ubicaciones-checkbox" name="ref_mil" value="{{ ref.id }}" {% if
-                            ref.id in ref_mil %}checked{% endif %}>
-                        {{ ref.descripcion }}
-                    </label>
-                    {% endfor %}
-                </fieldset>
-
-                <fieldset id="filtro-ubicacion">
-                    <legend>Ubicación</legend>
-                    <div id="rango-checkboxes"></div>
-                </fieldset>
+        <!-- ubicaciones -->
+        <div class="menu-item">
+            <a id="link-ubicaciones">Ubicaciones</a>
+            <div id="ubicaciones" class="panel-flotante">
+                <form id="form-ubicaciones" action="" method="get">
+                    <div class="form-ubicaciones">
+                        <fieldset id="filtro-ubicaciones">
+                            <legend>Grupo de Ubicaciones</legend>
+                            <label class="ubicaciones-label">
+                                <input id="ubicaciones-todos" type="checkbox" class="ubicaciones-checkbox"
+                                    name="ref_mil_todos" value="on" {% if todos=="on" %}checked{% endif %}>
+                                Todos
+                            </label>
+                            {% for ref in referencias if ref.id % 1000 == 0 %}
+                            <label class="ubicaciones-label">
+                                <input type="checkbox" class="ubicaciones-checkbox" name="ref_mil" value="{{ ref.id }}"
+                                    {% if ref.id in ref_mil %}checked{% endif %}>
+                                {{ ref.descripcion }}
+                            </label>
+                            {% endfor %}
+                        </fieldset>
+                        <fieldset id="filtro-ubicacion">
+                            <legend>Ubicación</legend>
+                            <div id="rango-checkboxes"></div>
+                        </fieldset>
+                    </div>
+                    <div class="pie-ubicaciones">
+                        <!-- Borrar -->
+                        <div hidden>
+                            <label class="estLum-label" for="estado-luminaria">Estado Luminarias</label>
+                            <select class="estLum-select" id="estado-luminaria" name="estLum">
+                                <option value="" {% if not est_lum %}selected{% endif %}>-- Todos --</option>
+                                <option value="0" {% if est_lum=="0" %}selected{% endif %}>Malo</option>
+                                <option value="1" {% if est_lum=="1" %}selected{% endif %}>Bueno</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="fecha-label" for="fecha">Fecha</label>
+                            <input class="fecha-input" type="date" id="fecha" name="fecha" value="{{ fecha }}">
+                        </div>
+                        <div>
+                            <input class="boton" type="submit" value="Filtrar" id="btn-filtrar">
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="pie-ubicaciones">
-                <div hidden>
-                    <label class="estLum-label" for="estado-luminaria">Estado Luminarias</label>
-                    <select class="estLum-select" id="estado-luminaria" name="estLum">
-                        <option value="" {% if not est_lum %}selected{% endif %}>-- Todos --</option>
-                        <option value="0" {% if est_lum=="0" %}selected{% endif %}>Malo</option>
-                        <option value="1" {% if est_lum=="1" %}selected{% endif %}>Bueno</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="fecha-label" for="fecha">Fecha</label>
-                    <input class="fecha-input" type="date" id="fecha" name="fecha" value="{{ fecha }}">
-                </div>
-                <div>
-                    <input class="boton" type="submit" value="Filtrar" id="btn-filtrar">
-                </div>
+        </div>
+        <!-- luminarias -->
+        <div class="menu-item">
+            <a id="link-luminarias">Luminarias</a>
+            <div id="luminarias" class="panel-flotante">
             </div>
-        </form>
+        </div>
+        <!-- buscar -->
+        <!-- <div class="menu-item">
+            <a id="link-buscar">Buscar</a>
+            <div id="buscar" class="panel-flotante">
+                <form id="form-buscar" action="" method="get">
+                    <label for="buscar-input">Buscar Luminaria:</label>
+                    <input type="text" id="buscar-input" name="buscar" placeholder="Ingrese ID o Descripción">
+                    <input type="submit" value="Buscar">
+                </form>
+                <div id="resultados-busqueda"></div>
+            </div>
+        </div> -->
+        <!-- planillas -->
+        <div class="menu-item">
+            <a id="link-planillas">Planillas</a>
+            <div id="planillas" class="panel-flotante">
+                <a id="link-postesLum" href="#" class="link-planilla">Postes y Luminarias</a><br>
+                <a id="link-instalarLum" href="#" class="link-planilla">Instalación de Luminarias</a>
+            </div>
+        </div>
     </div>
 
-    <div id="luminarias" class="panel-flotante">
-    </div>
-
-    <div id="buscar" class="panel-flotante">
-        <form id="form-buscar" action="" method="get">
-            <label for="buscar-input">Buscar Luminaria:</label>
-            <input type="text" id="buscar-input" name="buscar" placeholder="Ingrese ID o Descripción">
-            <input type="submit" value="Buscar">
-        </form>
-        <div id="resultados-busqueda"></div>
-    </div>
-
-    <div id="planillas" class="panel-flotante">
-        <a id="link-postesLum" href="#" class="link-planilla">Postes y Luminarias</a><br>
-        <a id="link-instalarLum" href="#" class="link-planilla">Instalación de Luminarias</a>
+    <!-- Mapa -->
+    <div id="map">
     </div>
 
     <script>
