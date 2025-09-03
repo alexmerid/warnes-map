@@ -55,6 +55,23 @@ form {
     text-align: center;
 }
 
+.boton {
+    background: var(--color-boton);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.4rem;
+    transition: background 0.2s, transform 0.2s;
+    text-transform: uppercase;
+}
+
+.boton:hover {
+    background: #1976d2;
+    transform: scale(1.02);
+}
+
 /* Estilos especificos */
 .menu {
     display: flex;
@@ -77,6 +94,17 @@ form {
     flex-direction: column;
 }
 
+/* Botón hamburguesa */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2.4rem;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
 .menu a {
     color: #fff;
     margin-right: 1rem;
@@ -94,63 +122,83 @@ form {
     color: #1976d2;
 }
 
+/* Menú responsivo */
+@media (max-width: 600px) {
+    .menu {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        padding: 0.5rem;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .menu-item {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .menu a {
+        width: 100%;
+        margin: 0;
+        padding: 1rem;
+        font-size: 1.6rem;
+        border-radius: 4px;
+    }
+
+    #menu.menu-cerrado .menu-item {
+        display: none;
+    }
+
+    #menu.menu-cerrado .menu-toggle {
+        display: block;
+    }
+}
+
 .panel-flotante {
     display: none;
     position: absolute;
     top: 100%;
     /* Justo debajo del link */
     left: -0.2rem;
-    min-width: 26rem;
+    min-width: 24rem;
     max-width: 72rem;
     background: #fff;
     border: 2px solid #1976d2;
     border-radius: 0 0 8px 8px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     z-index: 1001;
-    padding: 1rem;
+    padding: 0.5rem;
     max-height: 80vh;
     overflow-y: auto;
     color: var(--color-texto);
 }
 
-/* Mapa */
-#map {
-    width: 100vw;
-    height: calc(100vh - var(--alto-menu));
-    margin-top: var(--alto-menu);
-}
-
-/* Círculo para luminarias en un mismo poste */
-.custom-label-circle {
-    background: #fff;
-    border-radius: 50%;
-    width: 14px;
-    height: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #1976d2;
-    /* Color del borde */
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-    font-weight: bold;
-    font-size: 14px;
-    color: #1976d2;
-    margin-top: -11px;
-    /* Centra el círculo sobre el pin */
-    margin-left: -11px;
-    pointer-events: none;
-}
-
-.link-maps:hover {
-    text-decoration: underline;
+@media (max-width: 600px) {
+    .panel-flotante {
+        position: static;
+        min-width: 100%;
+        max-width: 100%;
+        border-radius: 0 0 8px 8px;
+        box-shadow: none;
+    }
 }
 
 /* Panel de Ubicaciones */
 .form-ubicaciones {
     display: flex;
     min-width: 42rem;
-    gap: 1rem;
+    gap: 0.5rem;
     align-items: flex-start;
+}
+
+@media (max-width: 600px) {
+    .form-ubicaciones {
+        flex-direction: column;
+        min-width: 100%;
+    }
 }
 
 .form-ubicaciones fieldset {
@@ -162,7 +210,8 @@ form {
 }
 
 .ubicaciones-label,
-.ubicacion-label {
+.ubicacion-label,
+.luminaria-label {
     display: block;
     margin-bottom: 0.5rem;
     cursor: pointer;
@@ -174,7 +223,7 @@ form {
 
 .ubicaciones-checkbox,
 .ubicacion-checkbox,
-.filtro-luminaria {
+.luminaria-checkbox {
     accent-color: #1976d2;
     margin-right: 0.5rem;
     transform: scale(1.2);
@@ -208,37 +257,54 @@ form {
     color: #333;
 }
 
-.boton {
-    background: var(--color-boton);
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1.4rem;
-    transition: background 0.2s, transform 0.2s;
+.boton__filtrar {
     width: 10rem;
-    text-transform: uppercase;
+}
+
+/* Panel de Luminarias */
+.luminarias__contenedor {
+    /* margin: 0.5rem; */
+    padding: 1rem;
+    width: 24rem;
+    border: 1px solid #1976d2;
+    border-radius: 6px;
+    background: #f8fafd;
 }
 
 /* Panel de Planillas */
-.link-planilla,
-.link-planilla:visited {
-    color: #fff;
-    background: var(--color-boton);
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.4rem;
-    display: inline-block;
-    margin: 0.5rem 1rem;
-    width: 24rem;
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition: background 0.2s, transform 0.2s;
+.boton__planillas {
+    width: 22rem;
+    margin: 0.5rem;
 }
 
-.boton:hover,
-.link-planilla:hover {
-    background: #1976d2;
-    transform: scale(1.02);
+/* Mapa */
+#map {
+    width: 100vw;
+    height: calc(100vh - var(--alto-menu));
+    margin-top: var(--alto-menu);
+}
+
+/* Círculo para luminarias en un mismo poste */
+.custom-label-circle {
+    background: #fff;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #1976d2;
+    /* Color del borde */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    font-size: 14px;
+    color: #1976d2;
+    margin-top: -11px;
+    /* Centra el círculo sobre el pin */
+    margin-left: -11px;
+    pointer-events: none;
+}
+
+.link-maps:hover {
+    text-decoration: underline;
 }

@@ -3,7 +3,7 @@ function descargarExcel(e, columnas, titulos) {
     e.preventDefault();
 
     // 1. Obtener los id_luminaria visibles (checkboxes marcados)
-    const visibles = Array.from(document.querySelectorAll('.filtro-luminaria'))
+    const visibles = Array.from(document.querySelectorAll('.luminaria-checkbox'))
         .filter(cb => cb.checked)
         .map(cb => parseInt(cb.value));
 

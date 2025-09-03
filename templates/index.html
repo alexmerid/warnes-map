@@ -11,6 +11,9 @@
 <body>
     <!-- Menú -->
     <div id="menu" class="menu">
+        <!-- Menú hamburguesa -->
+        <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menú">&#9776;</button>
+
         <!-- ubicaciones -->
         <div class="menu-item">
             <a id="link-ubicaciones">Ubicaciones</a>
@@ -52,7 +55,7 @@
                             <input class="fecha-input" type="date" id="fecha" name="fecha" value="{{ fecha }}">
                         </div>
                         <div>
-                            <input class="boton" type="submit" value="Filtrar" id="btn-filtrar">
+                            <input class="boton boton__filtrar" type="submit" value="Filtrar" id="btn-filtrar">
                         </div>
                     </div>
                 </form>
@@ -62,6 +65,7 @@
         <div class="menu-item">
             <a id="link-luminarias">Luminarias</a>
             <div id="luminarias" class="panel-flotante">
+                <div id="luminarias__contenedor" class="luminarias__contenedor"></div>
             </div>
         </div>
         <!-- buscar -->
@@ -80,8 +84,11 @@
         <div class="menu-item">
             <a id="link-planillas">Planillas</a>
             <div id="planillas" class="panel-flotante">
-                <a id="link-postesLum" href="#" class="link-planilla">Postes y Luminarias</a><br>
-                <a id="link-instalarLum" href="#" class="link-planilla">Instalación de Luminarias</a>
+                <input class="boton boton__planillas" type="button" value="Postes y Luminarias" id="link-postesLum">
+                <!-- <a id="link-postesLum" href="#" class="link-planilla">Postes y Luminarias</a><br> -->
+                <input class="boton boton__planillas" type="button" value="Instalación de Luminarias"
+                    id="link-instalarLum">
+                <!-- <a id="link-instalarLum" href="#" class="link-planilla">Instalación de Luminarias</a> -->
             </div>
         </div>
     </div>

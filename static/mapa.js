@@ -83,19 +83,20 @@ window.initMap = function () {
     const resumenLuminarias = obtenerResumenLuminarias(items);
     const totalLuminarias = resumenLuminarias.reduce((acc, lum) => acc + lum.cantidad, 0);
 
-    const luminarias = document.getElementById('luminarias');
+    const luminarias = document.getElementById('luminarias__contenedor');
     luminarias.innerHTML = ""; // Limpia el panel antes de agregar los checkboxes
 
     resumenLuminarias.forEach(lum => {
         const label = document.createElement('label');
-        label.style.display = 'block';
-        label.style.marginBottom = '0.5rem';
+        label.className = "luminaria-label";
+        // label.style.display = 'block';
+        // label.style.marginBottom = '0.5rem';
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.checked = true;
         checkbox.value = lum.id_luminaria;
-        checkbox.className = 'filtro-luminaria';
+        checkbox.className = 'luminaria-checkbox';
 
         label.appendChild(checkbox);
 
@@ -180,7 +181,7 @@ window.initMap = function () {
     });
 
     // Evento para filtrar los marcadores según los checkboxes
-    document.querySelectorAll('.filtro-luminaria').forEach(checkbox => {
+    document.querySelectorAll('.luminaria-checkbox').forEach(checkbox => {
         checkbox.addEventListener('change', function () {
             const id = this.value;
             const visible = this.checked;
