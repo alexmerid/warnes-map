@@ -45,18 +45,26 @@ def index():
     fecha = request.args.get('fecha') or date.today().isoformat()
 
     sql = f"""
-    WITH pl_vigentes AS
+    WITH
+    pl_vigentes AS
     (SELECT *
         FROM poste_luminaria
         WHERE (fecha_inst IS NULL AND fecha_desinst IS NULL)
-            OR (fecha_inst IS NULL AND fecha_desinst > '{fecha}') 
+            OR (fecha_inst IS NULL AND fecha_desinst > '{fecha}')
             OR (fecha_inst <= '{fecha}' AND fecha_desinst IS NULL)
-            OR (fecha_inst <= '{fecha}' AND fecha_desinst > '{fecha}'))
-    SELECT p.id, p.latitud, p.longitud, p.observacion, p.id_referencia, p.id_via,
+            OR (fecha_inst <= '{fecha}' AND fecha_desinst > '{fecha}')
+    ),
+    obs_vigentes AS
+    (SELECT *
+        FROM observacion
+        WHERE (fecha_obs <= '{fecha}' AND fecha_fin IS NULL)
+		OR (fecha_obs <= '{fecha}' AND fecha_fin > '{fecha}')
+    )    
+    SELECT p.id, p.latitud, p.longitud, o.descripcion as observacion, p.id_referencia, p.id_via,
         pl.id_luminaria, pl.estado, DATE_FORMAT(fecha_inst, '%%d/%%m/%%Y') as fecha_inst, pl.codigo
-    FROM
-        poste p
+    FROM poste p
         INNER JOIN pl_vigentes pl ON p.id = pl.id_poste
+        LEFT JOIN obs_vigentes o ON p.id = o.id_poste 
     """
     params = []
     where = []
