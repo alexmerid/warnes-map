@@ -41,15 +41,6 @@
                         </fieldset>
                     </div>
                     <div class="pie-ubicaciones">
-                        <!-- Borrar -->
-                        <div hidden>
-                            <label class="estLum-label" for="estado-luminaria">Estado Luminarias</label>
-                            <select class="estLum-select" id="estado-luminaria" name="estLum">
-                                <option value="" {% if not est_lum %}selected{% endif %}>-- Todos --</option>
-                                <option value="0" {% if est_lum=="0" %}selected{% endif %}>Malo</option>
-                                <option value="1" {% if est_lum=="1" %}selected{% endif %}>Bueno</option>
-                            </select>
-                        </div>
                         <div>
                             <label class="fecha-label" for="fecha">Fecha</label>
                             <input class="fecha-input" type="date" id="fecha" name="fecha" value="{{ fecha }}">
@@ -68,18 +59,6 @@
                 <div id="luminarias__contenedor" class="luminarias__contenedor"></div>
             </div>
         </div>
-        <!-- buscar -->
-        <!-- <div class="menu-item">
-            <a id="link-buscar">Buscar</a>
-            <div id="buscar" class="panel-flotante">
-                <form id="form-buscar" action="" method="get">
-                    <label for="buscar-input">Buscar Luminaria:</label>
-                    <input type="text" id="buscar-input" name="buscar" placeholder="Ingrese ID o Descripción">
-                    <input type="submit" value="Buscar">
-                </form>
-                <div id="resultados-busqueda"></div>
-            </div>
-        </div> -->
         <!-- planillas -->
         <div class="menu-item">
             <a id="link-planillas">Planillas</a>
@@ -89,6 +68,23 @@
                 <input class="boton boton__planillas" type="button" value="Instalación de Luminarias"
                     id="link-instalarLum">
                 <!-- <a id="link-instalarLum" href="#" class="link-planilla">Instalación de Luminarias</a> -->
+            </div>
+        </div>
+        <!-- buscar -->
+        <div class="menu-item">
+            <a id="link-buscar">Buscar</a>
+            <div id="buscar" class="panel-flotante">
+                <form id="form-buscar" action="" method="get" class="form-buscar">
+                    <fieldset>
+                        <!-- <label for="buscar-input">Buscar Luminaria:</label> -->
+                        <input type="text" class="txt-buscar" id="buscar-input" name="buscar"
+                            placeholder="ID-Poste/Código-Luminaria">
+                    </fieldset>
+                    <div class="pie-buscar">
+                        <input class="boton" type="submit" value="Buscar" id="btn-buscar">
+                    </div>
+                </form>
+                <div id="resultados-busqueda"></div>
             </div>
         </div>
     </div>
@@ -133,6 +129,7 @@
     <script src="{{ url_for('static', filename='mapa.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
     <script src="{{ url_for('static', filename='excel.js') }}"></script>
+    <script src="{{ url_for('static', filename='buscar.js') }}"></script>
 
 </body>
 

@@ -277,6 +277,27 @@ form {
     margin: 0.5rem;
 }
 
+/* Panel de Buscar */
+.form-buscar fieldset {
+    border: none;
+    padding: 1rem 0.5rem 0;
+    margin: 0;
+}
+
+.txt-buscar {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #1976d2;
+    border-radius: 4px;
+    font-size: 1.4rem;
+}
+
+.pie-buscar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0.5rem 0;
+}
+
 /* Mapa */
 #map {
     width: 100vw;

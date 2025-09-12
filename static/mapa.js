@@ -114,6 +114,11 @@ window.initMap = function () {
     totalDiv.innerHTML = `<b>Total:</b> ${totalLuminarias}`;
     luminarias.appendChild(totalDiv);
 
+    // --Marcadores por Id de poste y por Código de Luminaria--
+    window.marcadoresPorId = {};
+    window.marcadoresPorCodigo = {};
+    // --------------------------------------------------------
+
     // Crea los marcadores y los agrupa por id_luminaria
     const marcadoresPorLuminaria = {};
     Object.values(grouped).forEach(group => {
@@ -178,6 +183,15 @@ window.initMap = function () {
         marker.addListener('click', function () {
             infowindow.open(map, marker);
         });
+
+        // --Marcadores por Id de poste y por Código de Luminaria--
+        window.marcadoresPorId[group[0].id] = { marker, infowindow };
+        group.forEach(item => {
+            if (item.codigo) {
+                window.marcadoresPorCodigo[item.codigo] = { marker, infowindow };
+            }
+        });
+        // --------------------------------------------------------
     });
 
     // Evento para filtrar los marcadores según los checkboxes
@@ -190,6 +204,25 @@ window.initMap = function () {
             });
         });
     });
+};
+
+// Función global para mostrar el InfoWindow por ID de poste
+window.mostrarInfoWindowPorId = function (id) {
+    const obj = marcadoresPorId[id];
+    if (obj) {
+        obj.infowindow.open(obj.marker.getMap(), obj.marker);
+        // Centra el mapa en el marcador
+        obj.marker.getMap().setCenter(obj.marker.getPosition());
+    }
+};
+
+// Función global para mostrar el InfoWindow por código de luminaria
+window.mostrarInfoWindowPorCodigo = function (codigo) {
+    const obj = marcadoresPorCodigo[codigo];
+    if (obj) {
+        obj.infowindow.open(obj.marker.getMap(), obj.marker);
+        obj.marker.getMap().setCenter(obj.marker.getPosition());
+    }
 };
 
 window.initMap(); // Llama a la función para inicializar el mapa

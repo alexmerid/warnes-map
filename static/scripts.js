@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const panels = {
         ubicaciones: document.getElementById('ubicaciones'),
         luminarias: document.getElementById('luminarias'),
-        // buscar: document.getElementById('buscar'),
+        buscar: document.getElementById('buscar'),
         planillas: document.getElementById('planillas')
     };
     const links = {
         ubicaciones: document.getElementById('link-ubicaciones'),
         luminarias: document.getElementById('link-luminarias'),
-        // buscar: document.getElementById('link-buscar'),
+        buscar: document.getElementById('link-buscar'),
         planillas: document.getElementById('link-planillas')
     };
 
@@ -49,14 +49,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    /* links.buscar.addEventListener('click', function (e) {
+    links.buscar.addEventListener('click', function (e) {
         e.stopPropagation();
         if (panels.buscar.style.display === 'block') {
             hidePanels();
         } else {
             showPanel('buscar');
         }
-    }); */
+    });
 
     links.planillas.addEventListener('click', function (e) {
         e.stopPropagation();
