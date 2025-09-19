@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warnes-Map</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='normalize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
@@ -75,14 +76,11 @@
             <a id="link-buscar">Buscar</a>
             <div id="buscar" class="panel-flotante">
                 <form id="form-buscar" action="" method="get" class="form-buscar">
-                    <fieldset>
-                        <!-- <label for="buscar-input">Buscar Luminaria:</label> -->
-                        <input type="text" class="txt-buscar" id="buscar-input" name="buscar"
-                            placeholder="ID-Poste/Código-Luminaria">
-                    </fieldset>
-                    <div class="pie-buscar">
-                        <input class="boton" type="submit" value="Buscar" id="btn-buscar">
-                    </div>
+                    <input type="text" class="txt-buscar" id="buscar-input" name="buscar"
+                        placeholder="Id-Poste/Código-Luminaria">
+                    <button class="boton" type="submit" id="btn-buscar">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </form>
                 <div id="resultados-busqueda"></div>
             </div>
@@ -123,7 +121,7 @@
         };
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ maps_key }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ maps_keyy }}"></script>
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
     <script src="{{ url_for('static', filename='mapa.js') }}"></script>

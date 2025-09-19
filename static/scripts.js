@@ -3,14 +3,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const panels = {
         ubicaciones: document.getElementById('ubicaciones'),
         luminarias: document.getElementById('luminarias'),
-        buscar: document.getElementById('buscar'),
-        planillas: document.getElementById('planillas')
+        planillas: document.getElementById('planillas'),
+        buscar: document.getElementById('buscar')
     };
     const links = {
         ubicaciones: document.getElementById('link-ubicaciones'),
         luminarias: document.getElementById('link-luminarias'),
-        buscar: document.getElementById('link-buscar'),
-        planillas: document.getElementById('link-planillas')
+        planillas: document.getElementById('link-planillas'),
+        buscar: document.getElementById('link-buscar')
     };
 
     function showPanel(panelName) {
@@ -49,21 +49,22 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    links.buscar.addEventListener('click', function (e) {
-        e.stopPropagation();
-        if (panels.buscar.style.display === 'block') {
-            hidePanels();
-        } else {
-            showPanel('buscar');
-        }
-    });
-
     links.planillas.addEventListener('click', function (e) {
         e.stopPropagation();
         if (panels.planillas.style.display === 'block') {
             hidePanels();
         } else {
             showPanel('planillas');
+        }
+    });
+
+    links.buscar.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (panels.buscar.style.display === 'block') {
+            hidePanels();
+        } else {
+            showPanel('buscar');
+            document.getElementById('buscar-input').focus();
         }
     });
 

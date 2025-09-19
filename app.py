@@ -91,11 +91,6 @@ def index():
             params.extend([ref, ref + 999])
         where.append(" OR ".join(rangos))
 
-    # Añadir condición para el estado de luminaria si corresponde  # QUITAR
-    # if est_lum in ("0", "1"):
-    #     where.append("pl.estado = %s")
-    #     params.append(int(est_lum))
-
     if where:
         sql += " WHERE " + \
             " AND ".join([f"({w})" if 'OR' in w else w for w in where])
@@ -117,6 +112,45 @@ def index():
         fecha=fecha,
         maps_key=app.config['MAPS_KEY']
     )
+
+
+# Buscar Poste por ID
+@app.route('/buscar_poste/<int:id_poste>')
+def buscar_poste(id_poste):
+    conn = mysql.get_db()
+    cursor = conn.cursor()
+
+    sql = """
+    SELECT p.id_referencia, r.distrito, r.descripcion
+    FROM poste p INNER JOIN referencia r  on p.id_referencia = r.id
+    WHERE p.id = %s
+    """
+    cursor.execute(sql, (id_poste,))
+    poste = cursor.fetchone()
+    cursor.close()
+
+    return poste if poste else {}
+
+
+# Buscar Luminaria por Codigo
+@app.route('/buscar_luminaria/<codigo>')
+def buscar_luminaria(codigo):
+    conn = mysql.get_db()
+    cursor = conn.cursor()
+
+    sql = """
+    SELECT p.id, p.id_referencia, r.distrito, r.descripcion,
+    DATE_FORMAT(pl.fecha_inst, '%%d/%%m/%%Y') as fecha_inst, DATE_FORMAT(pl.fecha_desinst, '%%d/%%m/%%Y') as fecha_desinst
+    FROM poste p INNER JOIN poste_luminaria pl on p.id = pl.id_poste
+    INNER JOIN referencia r on p.id_referencia = r.id
+    WHERE pl.codigo = %s
+    """
+
+    cursor.execute(sql, (codigo,))
+    luminaria = cursor.fetchone()
+    cursor.close()
+
+    return luminaria if luminaria else {}
 
 
 #  Ejecutar la app
