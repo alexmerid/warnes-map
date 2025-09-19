@@ -17,13 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 // Buscar el Poste en la BdD
                 try {
-                    const response = await fetch(`/buscar_poste/${idPoste}`);
+                    const response = await fetch(`buscar_poste/${idPoste}`);
                     const resultado = await response.json();
                     if (Object.keys(resultado).length > 0) {
                         let msgPoste = `El poste con Id ${idPoste} se encuentra en:\n`;
-                        /* if (resultado.distrito !== null) {
-                            msgPoste += `Distrito ${resultado.distrito} - `;
-                        } */
                         msgPoste += resultado.distrito ? `Distrito ${resultado.distrito} - ` : '';
                         msgPoste += `${resultado.descripcion}`;
                         alert(msgPoste);
@@ -32,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 } catch (error) {
                     console.error('Error: ', error);
+                    alert('Error al buscar el poste.');
                 }
             }
         } else {
@@ -43,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 // Buscar la Luminaria en la BdD
                 try {
-                    const response = await fetch(`/buscar_luminaria/${codLuminaria}`);
+                    const response = await fetch(`buscar_luminaria/${codLuminaria}`);
                     const resultado = await response.json();
                     if (Object.keys(resultado).length > 0) {
                         let msgLuminaria = `La Luminaria con Código ${codLuminaria} se encuentra en:\n`;
