@@ -197,16 +197,29 @@ form {
 @media (max-width: 600px) {
     .form-ubicaciones {
         flex-direction: column;
-        min-width: 100%;
+        /* min-width: 100%; */
     }
 }
 
 .form-ubicaciones fieldset {
-    min-width: 18rem;
     border: 1px solid #1976d2;
     border-radius: 6px;
-    padding: 1rem;
+    padding: 0;
     background: #f8fafd;
+    width: 100%;
+}
+
+.ubicacion-div {
+    min-width: 18rem;
+    max-height: 36rem;
+    padding: 0.5rem 1rem;
+    overflow-y: auto;
+}
+
+@media (max-width: 600px) {
+    .ubicacion-div {
+        max-height: none;
+    }
 }
 
 .ubicaciones-label,

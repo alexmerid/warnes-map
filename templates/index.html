@@ -23,22 +23,24 @@
                     <div class="form-ubicaciones">
                         <fieldset id="filtro-ubicaciones">
                             <legend>Grupo de Ubicaciones</legend>
-                            <label class="ubicaciones-label">
-                                <input id="ubicaciones-todos" type="checkbox" class="ubicaciones-checkbox"
-                                    name="ref_mil_todos" value="on" {% if todos=="on" %}checked{% endif %}>
-                                Todos
-                            </label>
-                            {% for ref in referencias if ref.id % 1000 == 0 %}
-                            <label class="ubicaciones-label">
-                                <input type="checkbox" class="ubicaciones-checkbox" name="ref_mil" value="{{ ref.id }}"
-                                    {% if ref.id in ref_mil %}checked{% endif %}>
-                                {{ ref.descripcion }}
-                            </label>
-                            {% endfor %}
+                            <div class="ubicacion-div">
+                                <label class="ubicaciones-label">
+                                    <input id="ubicaciones-todos" type="checkbox" class="ubicaciones-checkbox"
+                                        name="ref_mil_todos" value="on" {% if todos=="on" %}checked{% endif %}>
+                                    Todos
+                                </label>
+                                {% for ref in referencias if ref.id % 1000 == 0 %}
+                                <label class="ubicaciones-label">
+                                    <input type="checkbox" class="ubicaciones-checkbox" name="ref_mil"
+                                        value="{{ ref.id }}" {% if ref.id in ref_mil %}checked{% endif %}>
+                                    {{ ref.descripcion }}
+                                </label>
+                                {% endfor %}
+                            </div>
                         </fieldset>
                         <fieldset id="filtro-ubicacion">
                             <legend>Ubicación</legend>
-                            <div id="rango-checkboxes"></div>
+                            <div id="rango-checkboxes" class="ubicacion-div"></div>
                         </fieldset>
                     </div>
                     <div class="pie-ubicaciones">
@@ -121,7 +123,7 @@
         };
     </script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ maps_key }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ maps_keyy }}"></script>
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
     <script src="{{ url_for('static', filename='mapa.js') }}"></script>
