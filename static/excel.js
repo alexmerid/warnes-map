@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (linkPostesLum) {
         linkPostesLum.addEventListener('click', function (e) {
-            descargarExcel(e, ['id', 'latitud', 'longitud', 'observacion', 'tipo', 'potencia', 'estado'],
-                ['ID Poste', 'Latitud', 'Longitud', 'Observación', 'Tipo', 'Potencia', 'Estado']);
+            descargarExcel(e, ['id', 'latitud', 'longitud', 'observacion', 'tipo', 'potencia', 'estado', 'codigo', 'fecha_inst'],
+                ['ID Poste', 'Latitud', 'Longitud', 'Observación', 'Tipo', 'Potencia', 'Estado', 'Código', 'Fecha Instalación']);
         });
     }
 
