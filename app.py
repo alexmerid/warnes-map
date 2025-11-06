@@ -41,7 +41,6 @@ def index():
     ref_mil = request.args.getlist('ref_mil', type=int)
     ref_rango = request.args.getlist('ref_rango', type=int)
     todos = request.args.get('ref_mil_todos')
-    est_lum = request.args.get('estLum')  # QUITAR
     fecha = request.args.get('fecha') or date.today().isoformat()
 
     sql = f"""
@@ -60,7 +59,7 @@ def index():
         WHERE (fecha_obs <= '{fecha}' AND fecha_fin IS NULL)
 		OR (fecha_obs <= '{fecha}' AND fecha_fin > '{fecha}')
     )    
-    SELECT p.id, p.latitud, p.longitud, o.descripcion as observacion, p.id_referencia, p.id_via,
+    SELECT p.id, p.latitud, p.longitud, o.descripcion as obs, p.id_referencia, p.id_via,
         pl.id_luminaria, pl.estado, DATE_FORMAT(fecha_inst, '%%d/%%m/%%Y') as fecha_inst, pl.codigo
     FROM poste p
         INNER JOIN pl_vigentes pl ON p.id = pl.id_poste
@@ -98,7 +97,7 @@ def index():
     cursor.execute(sql, params)
     items = cursor.fetchall()
     cursor.close()
-
+    print(items)
     return render_template(
         'index.html',
         items=items,
@@ -108,7 +107,6 @@ def index():
         ref_mil=ref_mil or [1000],  # Por defecto 1000 seleccionado
         ref_rango=ref_rango,
         todos=todos,
-        est_lum=est_lum,  # QUITAR
         fecha=fecha,
         maps_key=app.config['MAPS_KEY']
     )

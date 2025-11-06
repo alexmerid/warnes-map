@@ -53,14 +53,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (linkPostesLum) {
         linkPostesLum.addEventListener('click', function (e) {
-            descargarExcel(e, ['id', 'latitud', 'longitud', 'observacion', 'tipo', 'potencia', 'estado', 'codigo', 'fecha_inst'],
+            descargarExcel(e, ['id', 'latitud', 'longitud', 'obs', 'tipo', 'potencia', 'estado', 'codigo', 'fecha_inst'],
                 ['ID Poste', 'Latitud', 'Longitud', 'Observación', 'Tipo', 'Potencia', 'Estado', 'Código', 'Fecha Instalación']);
         });
     }
 
     if (linkInstalarLum) {
         linkInstalarLum.addEventListener('click', function (e) {
-            descargarExcel(e, ['id', 'observacion', 'tipo', 'potencia'],
+            descargarExcel(e, ['id', 'obs', 'tipo', 'potencia'],
                 ['ID Poste', 'Observación', 'Tipo', 'Potencia']);
         });
     }

@@ -156,7 +156,7 @@ window.initMap = function () {
         // Construye el contenido del infowindow
         let content = `
             <b>Poste: ${group[0].id}</b><br>
-            <b>Observación:</b> ${group[0].observacion ? group[0].observacion : ''}<br>
+            <b>Observación:</b> ${group[0].obs ? group[0].obs : ''}<br>
             <b>Via:</b> ${getViaDescripcion(group[0].id_via)}<br>
             <hr>
         `;
