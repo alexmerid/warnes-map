@@ -97,7 +97,9 @@ def index():
     cursor.execute(sql, params)
     items = cursor.fetchall()
     cursor.close()
-    print(items)
+
+    # Usar empty string si PRUEBA es True, sino usar la API Key real
+    maps_key = '' if app.config['PRUEBA'] else app.config['MAPS_KEY']
     return render_template(
         'index.html',
         items=items,
@@ -108,7 +110,7 @@ def index():
         ref_rango=ref_rango,
         todos=todos,
         fecha=fecha,
-        maps_key=app.config['MAPS_KEY']
+        maps_key=maps_key
     )
 
 
