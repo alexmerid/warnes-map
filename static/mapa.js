@@ -81,7 +81,8 @@ window.initMap = function () {
 
     // Genera los checkboxes en el panel luminarias
     const resumenLuminarias = obtenerResumenLuminarias(items);
-    const totalLuminarias = resumenLuminarias.reduce((acc, lum) => acc + lum.cantidad, 0);
+    let totalLuminarias = resumenLuminarias.reduce((acc, lum) => acc + lum.cantidad, 0);
+    const cantidadPorLuminaria = {}; // <-- Para actualiza Total
 
     const luminarias = document.getElementById('luminarias__contenedor');
     luminarias.innerHTML = ""; // Limpia el panel antes de agregar los checkboxes
@@ -106,11 +107,13 @@ window.initMap = function () {
 
         label.appendChild(document.createTextNode(' ' + texto));
         luminarias.appendChild(label);
+        cantidadPorLuminaria[lum.id_luminaria] = lum.cantidad; // <-- Para actualizar Total
     });
 
     // Agrega el total al final
     const totalDiv = document.createElement('div');
     totalDiv.style.marginTop = '1rem';
+    totalDiv.id = 'total-luminarias-div';  // <-- Para actualizar Total
     totalDiv.innerHTML = `<b>Total:</b> ${totalLuminarias}`;
     luminarias.appendChild(totalDiv);
 
@@ -202,6 +205,14 @@ window.initMap = function () {
             (marcadoresPorLuminaria[id] || []).forEach(marker => {
                 marker.setVisible(visible);
             });
+            // -- Para actualizar Total --
+            if (this.checked) {
+                totalLuminarias += cantidadPorLuminaria[id] || 0;
+            } else {
+                totalLuminarias -= cantidadPorLuminaria[id] || 0;
+            }
+            document.getElementById('total-luminarias-div').innerHTML = `<b>Total:</b> ${totalLuminarias}`;
+            // -------------------------
         });
     });
 };
