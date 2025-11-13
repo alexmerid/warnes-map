@@ -1,7 +1,8 @@
+# Principal
+from datetime import date, timedelta
 from flask import Flask, render_template, request
 from flaskext.mysql import MySQL
 from pymysql.cursors import DictCursor
-from datetime import date
 
 app = Flask(__name__)
 
@@ -41,32 +42,47 @@ def index():
     ref_mil = request.args.getlist('ref_mil', type=int)
     ref_rango = request.args.getlist('ref_rango', type=int)
     todos = request.args.get('ref_mil_todos')
+    fecha_ini = request.args.get(
+        'fecha_ini') or (date.today() - timedelta(days=15)).isoformat()
     fecha = request.args.get('fecha') or date.today().isoformat()
+    instaladas = request.args.get('instaladas') or '0'
 
-    sql = f"""
-    WITH
-    pl_vigentes AS
-    (SELECT *
-        FROM poste_luminaria
-        WHERE (fecha_inst IS NULL AND fecha_desinst IS NULL)
-            OR (fecha_inst IS NULL AND fecha_desinst > '{fecha}')
-            OR (fecha_inst <= '{fecha}' AND fecha_desinst IS NULL)
-            OR (fecha_inst <= '{fecha}' AND fecha_desinst > '{fecha}')
-    ),
-    obs_vigentes AS
-    (SELECT *
-        FROM observacion
-        WHERE (fecha_obs <= '{fecha}' AND fecha_fin IS NULL)
-		OR (fecha_obs <= '{fecha}' AND fecha_fin > '{fecha}')
-    )    
-    SELECT p.id, p.latitud, p.longitud, o.descripcion as obs, p.id_referencia, p.id_via,
-        pl.id_luminaria, pl.estado, DATE_FORMAT(fecha_inst, '%%d/%%m/%%Y') as fecha_inst, pl.codigo
-    FROM poste p
-        INNER JOIN pl_vigentes pl ON p.id = pl.id_poste
-        LEFT JOIN obs_vigentes o ON p.id = o.id_poste 
-    """
-    params = []
-    where = []
+    if instaladas == "1":
+        sql = """
+        SELECT p.id, p.latitud, p.longitud, '' as obs, p.id_referencia, p.id_via,
+        pl.id_luminaria, pl.estado, DATE_FORMAT(pl.fecha_inst, '%%d/%%m/%%Y') as fecha_inst,
+        pl.codigo, pl2.id_luminaria as id_luminaria_ant, pl2.estado as estado_ant
+        FROM 
+        poste p INNER JOIN poste_luminaria pl  ON p.id = pl.id_poste
+        LEFT JOIN poste_luminaria pl2 ON pl.reemp = pl2.id
+        """
+        where = ["pl.fecha_inst BETWEEN %s AND %s"]
+        params = [fecha_ini, fecha]
+    else:
+        sql = f"""
+        WITH
+        pl_vigentes AS
+        (SELECT *
+            FROM poste_luminaria
+            WHERE (fecha_inst IS NULL AND fecha_desinst IS NULL)
+                OR (fecha_inst IS NULL AND fecha_desinst > '{fecha}')
+                OR (fecha_inst <= '{fecha}' AND fecha_desinst IS NULL)
+                OR (fecha_inst <= '{fecha}' AND fecha_desinst > '{fecha}')
+        ),
+        obs_vigentes AS
+        (SELECT *
+            FROM observacion
+            WHERE (fecha_obs <= '{fecha}' AND fecha_fin IS NULL)
+            OR (fecha_obs <= '{fecha}' AND fecha_fin > '{fecha}')
+        )    
+        SELECT p.id, p.latitud, p.longitud, o.descripcion as obs, p.id_referencia, p.id_via,
+            pl.id_luminaria, pl.estado, DATE_FORMAT(pl.fecha_inst, '%%d/%%m/%%Y') as fecha_inst, pl.codigo
+        FROM poste p
+            INNER JOIN pl_vigentes pl ON p.id = pl.id_poste
+            LEFT JOIN obs_vigentes o ON p.id = o.id_poste 
+        """
+        where = []
+        params = []
     if todos == "on":
         # Mostrar todos los puntos (sin WHERE)
         pass
@@ -94,6 +110,9 @@ def index():
         sql += " WHERE " + \
             " AND ".join([f"({w})" if 'OR' in w else w for w in where])
     sql += " ORDER BY p.id;"
+    print(sql)
+    print(fecha_ini)
+    print(fecha)
     cursor.execute(sql, params)
     items = cursor.fetchall()
     cursor.close()
@@ -109,6 +128,8 @@ def index():
         ref_mil=ref_mil or [1000],  # Por defecto 1000 seleccionado
         ref_rango=ref_rango,
         todos=todos,
+        instaladas=instaladas,
+        fecha_ini=fecha_ini,
         fecha=fecha,
         maps_key=maps_key
     )

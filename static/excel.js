@@ -24,6 +24,9 @@ function descargarExcel(e, columnas, titulos) {
             } else if (col === 'tipo' || col === 'potencia') {
                 const info = getLuminariaInfo(item.id_luminaria);
                 obj[col] = info[col] || '';
+            } else if (col === 'tipo_ant' || col === 'potencia_ant') {
+                const info = getLuminariaInfo(item.id_luminaria_ant);
+                obj[col] = info[col.slice(0, -4)] || '';
             } else {
                 obj[col] = item[col];
             }
@@ -53,8 +56,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (linkPostesLum) {
         linkPostesLum.addEventListener('click', function (e) {
-            descargarExcel(e, ['id', 'latitud', 'longitud', 'obs', 'tipo', 'potencia', 'estado', 'codigo', 'fecha_inst'],
-                ['ID Poste', 'Latitud', 'Longitud', 'Observación', 'Tipo', 'Potencia', 'Estado', 'Código', 'Fecha Instalación']);
+            if (instaladas == '1') {
+                descargarExcel(e, ['id', 'latitud', 'longitud', 'tipo', 'potencia', 'codigo', 'fecha_inst', 'tipo_ant', 'potencia_ant'],
+                    ['ID Poste', 'Latitud', 'Longitud', 'Tipo', 'Potencia', 'Código', 'Fecha Instalación', 'Tipo Anterior', 'Potencia Anterior']);
+            } else {
+                descargarExcel(e, ['id', 'latitud', 'longitud', 'obs', 'tipo', 'potencia', 'estado', 'codigo', 'fecha_inst'],
+                    ['ID Poste', 'Latitud', 'Longitud', 'Observación', 'Tipo', 'Potencia', 'Estado', 'Código', 'Fecha Instalación']);
+            }
+
         });
     }
 

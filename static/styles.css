@@ -197,7 +197,6 @@ form {
 @media (max-width: 600px) {
     .form-ubicaciones {
         flex-direction: column;
-        /* min-width: 100%; */
     }
 }
 
@@ -246,22 +245,24 @@ form {
     transform: scale(1.1);
 }
 
-.pie-ubicaciones {
+.pie__panel {
+    margin: 0.8rem 0.5rem;
+}
+
+.panel-filtrar {
     display: flex;
-    justify-content: space-between;
-    margin: 1rem 0.5rem 0;
-    padding: 0;
+    justify-content: flex-end;
+    margin: 1rem 0.5rem 0.5rem;
 }
 
-.estLum-label,
-.fecha-label {
-    margin-right: 0.5rem;
-    /* font-size: 1.4rem; */
+.instaladas-label {
+    display: inline-block;
+    width: 18rem
 }
 
-.estLum-select,
 .fecha-input {
     width: 12rem;
+    margin-right: 3rem;
     padding: 0.2rem;
     border: 1px solid #1976d2;
     border-radius: 4px;
@@ -276,7 +277,6 @@ form {
 
 /* Panel de Luminarias */
 .luminarias__contenedor {
-    /* margin: 0.5rem; */
     padding: 1rem;
     width: 24rem;
     border: 1px solid #1976d2;

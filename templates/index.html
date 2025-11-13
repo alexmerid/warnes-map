@@ -44,17 +44,30 @@
                         </fieldset>
                     </div>
                     <div class="pie-ubicaciones">
-                        <div>
-                            <label class="fecha-label" for="fecha">Fecha</label>
+                        <div class="pie__panel">
+                            <input type="radio" id="lum-inst" name="instaladas" value="1" {% if instaladas=="1"
+                                %}checked{% endif %}>
+                            <label class="instaladas-label" for="lum-inst">Luminarias Instaladas</label>
+                            <input type="radio" id="lum-todas" name="instaladas" value="0" {% if instaladas=="0"
+                                %}checked{% endif %}>
+                            <label class="instaladas-label" for="lum-todas">Todas las Luminarias</label>
+                        </div>
+                        <div class="pie__panel">
+                            <label class="fecha-label" for="fecha-ini">Desde</label>
+                            <input class="fecha-input" type="date" id="fecha-ini" name="fecha_ini"
+                                value="{{ fecha_ini }}">
+                            <label class="fecha-label" for="fecha">Hasta</label>
                             <input class="fecha-input" type="date" id="fecha" name="fecha" value="{{ fecha }}">
                         </div>
-                        <div>
+                        <div class="panel-filtrar">
                             <input class="boton boton__filtrar" type="submit" value="Filtrar" id="btn-filtrar">
                         </div>
                     </div>
+
                 </form>
             </div>
         </div>
+
         <!-- luminarias -->
         <div class="menu-item">
             <a id="link-luminarias">Luminarias</a>
@@ -62,6 +75,7 @@
                 <div id="luminarias__contenedor" class="luminarias__contenedor"></div>
             </div>
         </div>
+
         <!-- planillas -->
         <div class="menu-item">
             <a id="link-planillas">Planillas</a>
@@ -73,6 +87,7 @@
                 <!-- <a id="link-instalarLum" href="#" class="link-planilla">Instalación de Luminarias</a> -->
             </div>
         </div>
+
         <!-- buscar -->
         <div class="menu-item">
             <a id="link-buscar">Buscar</a>
@@ -102,6 +117,7 @@
         const ref_mil = {{ ref_mil| tojson }};
         const ref_rango = {{ ref_rango| tojson }};
         const todos = "{{ todos or '' }}";
+        const instaladas = "{{ instaladas or '' }}";
 
         // Ruta para los archivos estáticos
         const STATIC_URL = "{{ url_for('static', filename='') }}";

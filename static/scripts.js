@@ -166,6 +166,30 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- Inicialización al cargar ---
     updateMilCheckboxes();
     updateFiltrarBtn();
+
+    // --- Habilitar/deshabilitar fecha-ini según el radio button ---
+    const lumTodas = document.getElementById('lum-todas');
+    const lumInst = document.getElementById('lum-inst');
+    const fechaIniInput = document.getElementById('fecha-ini');
+    const fechaIniLabel = document.querySelector('label[for="fecha-ini"]');
+
+    function updateFechaIniState() {
+        if (lumTodas.checked) {
+            fechaIniInput.disabled = true;
+            fechaIniLabel.style.opacity = '0.5';
+            // fechaIniLabel.style.cursor = 'not-allowed';
+        } else {
+            fechaIniInput.disabled = false;
+            fechaIniLabel.style.opacity = '1';
+            // fechaIniLabel.style.cursor = 'pointer';
+        }
+    }
+
+    lumTodas.addEventListener('change', updateFechaIniState);
+    lumInst.addEventListener('change', updateFechaIniState);
+
+    // Ejecutar al cargar la página para establecer el estado inicial
+    updateFechaIniState();
 });
 
 // --- Menú hamburguesa responsivo ---
