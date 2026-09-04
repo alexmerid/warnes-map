@@ -41,7 +41,7 @@ function iconoPorLuminaria(id_luminaria) {
         case 8075:
         case 8120:
         case 8150:
-            return STATIC_URL + 'img/lgreen-dot20.png';
+            return STATIC_URL + 'img/teal-dot20.png';
         default:
             return STATIC_URL + 'img/red-dot20.png';
     }
